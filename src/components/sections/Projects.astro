@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import projectsBg from "../../assets/photos/bithiahs-table.jpeg";
+import projectsBg from "../../assets/photos/place-uganda.jpg";
 ---
 
 <section class="relative overflow-hidden">
@@ -9,7 +9,7 @@ import projectsBg from "../../assets/photos/bithiahs-table.jpeg";
     alt=""
     widths={[800, 1600, 2400]}
     sizes="100vw"
-    class="absolute inset-0 h-full w-full object-cover object-[50%_30%] grayscale blur-sm"
+    class="absolute inset-0 h-full w-full object-cover object-[45%_35%] grayscale blur-[1px]"
   />
   <div
     class="absolute inset-0"
@@ -17,11 +17,11 @@ import projectsBg from "../../assets/photos/bithiahs-table.jpeg";
   ></div>
 
   <div class="relative mx-auto max-w-5xl px-6 py-20">
-    <h1 class="font-display text-3xl font-semibold text-navy-950">Projects</h1>
+    <h1 class="font-display text-3xl font-normal text-navy-950">Projects</h1>
 
     <div class="mt-8 grid gap-6 lg:grid-cols-2">
       <article class="rounded-xl border border-navy-950/15 bg-white p-6">
-        <h2 class="font-display text-2xl font-semibold text-navy-950">
+        <h2 class="font-display text-2xl font-normal text-navy-950">
           CVBuilder: offline infrastructure for a Ugandan community school
         </h2>
         <p class="mt-1 text-sm text-sage-700">
@@ -67,11 +67,19 @@ import projectsBg from "../../assets/photos/bithiahs-table.jpeg";
               >Experience page</a
             >.
           </p>
+          <a
+            href="https://github.com/pitzilscript/cvbuilder"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex min-h-11 items-center rounded-md border border-sage-500 px-4 py-2 text-sm font-semibold text-navy-950 hover:border-sage-700 hover:bg-sage-300/20"
+          >
+            View on GitHub
+          </a>
         </div>
       </article>
 
       <article class="rounded-xl border border-navy-950/15 bg-white p-6">
-        <h2 class="font-display text-2xl font-semibold text-navy-950">
+        <h2 class="font-display text-2xl font-normal text-navy-950">
           Scorecast: predicting international soccer outcomes
         </h2>
         <p class="mt-1 text-sm text-sage-700">
@@ -111,6 +119,14 @@ import projectsBg from "../../assets/photos/bithiahs-table.jpeg";
             scikit-learn, scipy, pandas, NumPy, and Gradio, using Kaggle's
             historical match and FIFA ranking datasets.
           </p>
+          <a
+            href="https://github.com/pitzilscript/scorecast-app"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex min-h-11 items-center rounded-md border border-sage-500 px-4 py-2 text-sm font-semibold text-navy-950 hover:border-sage-700 hover:bg-sage-300/20"
+          >
+            View on GitHub
+          </a>
         </div>
       </article>
     </div>

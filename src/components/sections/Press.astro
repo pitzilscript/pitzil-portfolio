@@ -1,17 +1,8 @@
 ---
 import { Image } from "astro:assets";
-import pressBg from "../../assets/photos/press-bg.jpeg";
+import pressBg from "../../assets/photos/place-capitol-rotunda.jpg";
 
 const coverage = [
-  {
-    title: "Faith, Code, and Community in APU's Computer Science Degree",
-    outlet: "Azusa Pacific University",
-    meta: "Azusa Pacific University · June 2026 · by Bella Youssefian",
-    quote:
-      "We're creating software where students in rural Uganda can build resumes without power or internet access.",
-    body: "Published while I was actively building the Uganda project, this is the most current and most technical coverage: I'm quoted directly on the engineering work itself, not just my advocacy history. I'm also quoted on why I chose the degree: “I wanted to learn how to apply my technical skill set with a faith-based mindset.”",
-    href: "https://www.apu.edu/articles/faith-code-and-community-in-apu-s-computer-science-degree/",
-  },
   {
     title: "Getting to Know District of Choice",
     outlet: "Diamond Bar-Walnut Patch",
@@ -20,13 +11,6 @@ const coverage = [
       "The District of Choice program has opened countless doors for me. I push myself every day to be a better student and person because I know that I have been given an incredible opportunity.",
     body: "I'm featured as the student voice for California's District of Choice program, the same program SB 897 later made permanent.",
     href: "https://patch.com/california/diamondbar-walnut/getting-know-district-choice",
-  },
-  {
-    title: "California approves new District of Choice bill",
-    outlet: "the hoofprint",
-    meta: "the hoofprint · October 2024 · by Antra Shah",
-    body: "Coverage of SB 897 being signed into law, confirming Walnut Valley had more District of Choice students than any district in California.",
-    href: "https://whshoofprint.com/3215/news/california-approves-new-district-of-choice-bill/",
   },
   {
     title: "WHS Holds First Student Think Tank of the Year",
@@ -38,11 +22,27 @@ const coverage = [
     href: "https://whshoofprint.com/3145/news/whs-holds-first-student-think-tank-of-the-year/",
   },
   {
+    title: "California approves new District of Choice bill",
+    outlet: "the hoofprint",
+    meta: "the hoofprint · October 2024 · by Antra Shah",
+    body: "Coverage of SB 897 being signed into law, confirming Walnut Valley had more District of Choice students than any district in California.",
+    href: "https://whshoofprint.com/3215/news/california-approves-new-district-of-choice-bill/",
+  },
+  {
     title: "Students make a difference at the school",
     outlet: "the hoofprint",
     meta: "the hoofprint · November 2024 · by Lydia Chen",
     body: "Coverage of student organizations' role in school decision-making. I'm pictured and named as the ASB representative alongside leaders from Student Think Tank, Peer Counseling, and Publications.",
     href: "https://whshoofprint.com/3459/news/students-make-a-difference-at-the-school/",
+  },
+  {
+    title: "Faith, Code, and Community in APU's Computer Science Degree",
+    outlet: "Azusa Pacific University",
+    meta: "Azusa Pacific University · June 2026 · by Bella Youssefian",
+    quote:
+      "We're creating software where students in rural Uganda can build resumes without power or internet access.",
+    body: "Published while I was actively building the Uganda project, this is the most current and most technical coverage: I'm quoted directly on the engineering work itself, not just my advocacy history. I'm also quoted on why I chose the degree: “I wanted to learn how to apply my technical skill set with a faith-based mindset.”",
+    href: "https://www.apu.edu/articles/faith-code-and-community-in-apu-s-computer-science-degree/",
   },
 ];
 ---
@@ -53,7 +53,7 @@ const coverage = [
     alt=""
     widths={[800, 1600, 2400]}
     sizes="100vw"
-    class="absolute inset-0 h-full w-full object-cover object-[50%_30%] grayscale blur-sm"
+    class="absolute inset-0 h-full w-full object-cover object-[50%_25%] grayscale blur-[1px]"
   />
   <div
     class="absolute inset-0"
@@ -61,13 +61,13 @@ const coverage = [
   ></div>
 
   <div class="relative mx-auto max-w-3xl px-6 py-20">
-    <h1 class="font-display text-3xl font-semibold text-navy-950">Press</h1>
+    <h1 class="font-display text-3xl font-normal text-navy-950">Press</h1>
 
     <div class="mt-8 space-y-14">
       {
         coverage.map((item) => (
           <article>
-            <h2 class="font-display text-2xl font-semibold text-navy-950">
+            <h2 class="font-display text-2xl font-normal text-navy-950">
               <a
                 href={item.href}
                 class="hover:text-sage-500"
@@ -79,7 +79,7 @@ const coverage = [
             </h2>
             <p class="mt-1 text-sm text-sage-700">{item.meta}</p>
             {item.quote && (
-              <blockquote class="mt-4 border-l-2 border-sage-500 pl-4 italic text-navy-950">
+              <blockquote class="mt-4 border-l-2 border-sage-500 pl-4 font-display italic text-navy-950">
                 "{item.quote}"
               </blockquote>
             )}

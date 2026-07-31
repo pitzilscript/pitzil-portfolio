@@ -1,23 +1,6 @@
----
-import { Image } from "astro:assets";
-import resumeBg from "../../assets/photos/experience-bg.jpeg";
----
-
-<section class="relative overflow-hidden">
-  <Image
-    src={resumeBg}
-    alt=""
-    widths={[800, 1600, 2400]}
-    sizes="100vw"
-    class="absolute inset-0 h-full w-full object-cover object-[60%_35%] grayscale blur-sm"
-  />
-  <div
-    class="absolute inset-0"
-    style="background-color: rgba(250, 247, 238, 0.8);"
-  ></div>
-
-  <div class="relative mx-auto max-w-3xl px-6 py-20 text-center">
-    <h1 class="font-display text-3xl font-semibold text-navy-950">Resume</h1>
+<section class="bg-navy-950 px-6 py-20 text-center text-ivory-50">
+  <div class="mx-auto max-w-3xl">
+    <h1 class="font-display text-3xl font-normal text-ivory-50">Resume</h1>
     <div class="mt-6 flex flex-wrap justify-center gap-4">
       <a
         href="/files/Pitzil-Avila-Castellanos-Resume.pdf"
@@ -29,7 +12,7 @@ import resumeBg from "../../assets/photos/experience-bg.jpeg";
       <a
         href="/files/Pitzil-Avila-Castellanos-Technical-Resume.pdf"
         download
-        class="inline-block min-h-11 rounded-md border border-sage-500 px-5 py-2.5 font-semibold text-navy-950 hover:border-sage-700 hover:bg-sage-300/20"
+        class="inline-block min-h-11 rounded-md border border-sage-500 px-5 py-2.5 font-semibold text-ivory-50 hover:border-sage-300 hover:text-sage-300"
       >
         Download Technical Resume (PDF)
       </a>

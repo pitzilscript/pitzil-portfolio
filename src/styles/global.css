@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
-@import "@fontsource-variable/karla";
-@import "@fontsource/playfair-display/400.css";
-@import "@fontsource/playfair-display/600.css";
-@import "@fontsource/playfair-display/700.css";
+@import "@fontsource-variable/inter";
+@import "@fontsource/libre-baskerville/400.css";
+@import "@fontsource/libre-baskerville/400-italic.css";
+@import "@fontsource/libre-baskerville/700.css";
 
 @theme {
   /* Derived from Pitzil's LinkedIn banner: Maya calendar-stone glyph
@@ -21,8 +21,8 @@
   --color-ivory-100: #f4efe1;
   --color-ivory-300: #e4dcc4;
 
-  --font-display: "Playfair Display", "Iowan Old Style", Georgia, serif;
-  --font-sans: "Karla Variable", "Karla", system-ui, -apple-system, sans-serif;
+  --font-display: "Libre Baskerville", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
 }
 
 @layer base {
@@ -45,7 +45,6 @@
   body {
     background-color: var(--color-ivory-50);
     color: var(--color-navy-950);
-    font-weight: 700;
   }
 
   /* Visible, high-contrast focus ring for keyboard users on any background */

@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import experienceBg from "../../assets/photos/advocacy-bg.jpeg";
+import experienceBg from "../../assets/photos/place-colombo-day.webp";
 import bithiahsTable from "../../assets/photos/bithiahs-table.jpeg";
 import iyapLogo from "../../assets/logos/iyap.webp";
 import watotoLogo from "../../assets/logos/watoto-black.png";
@@ -74,7 +74,7 @@ const roles = [
     alt=""
     widths={[800, 1600, 2400]}
     sizes="100vw"
-    class="absolute inset-0 h-full w-full object-cover object-[55%_25%] grayscale blur-sm"
+    class="absolute inset-0 h-full w-full object-cover object-[50%_40%] grayscale blur-[1px]"
   />
   <div
     class="absolute inset-0"
@@ -82,7 +82,7 @@ const roles = [
   ></div>
 
   <div class="relative mx-auto max-w-3xl px-6 py-20">
-    <h1 class="font-display text-3xl font-semibold text-navy-950">Experience</h1>
+    <h1 class="font-display text-3xl font-normal text-navy-950">Experience</h1>
     <p class="mt-3 text-navy-800">Tap or click a role to read more.</p>
     <div class="mt-8 grid gap-4 sm:grid-cols-2" data-experience-grid>
       {
@@ -103,7 +103,7 @@ const roles = [
               />
             </span>
             <span class="flex-1">
-              <span class="block font-display text-base font-semibold leading-tight text-navy-950">
+              <span class="block font-display text-base font-normal leading-tight text-navy-950">
                 {entry.role}
               </span>
               <span class="block text-sm text-sage-700">{entry.org}</span>
