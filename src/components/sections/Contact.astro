@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import contactBg from "../../assets/photos/hero-linux-summit.jpeg";
+---
+
+<section class="relative overflow-hidden">
+  <Image
+    src={contactBg}
+    alt=""
+    widths={[800, 1600, 2400]}
+    sizes="100vw"
+    class="absolute inset-0 h-full w-full object-cover object-[45%_35%] grayscale blur-sm"
+  />
+  <div
+    class="absolute inset-0"
+    style="background-color: rgba(250, 247, 238, 0.8);"
+  ></div>
+
+  <div class="relative mx-auto max-w-3xl px-6 py-20 text-center">
+    <h1 class="font-display text-3xl font-semibold text-navy-950">Contact</h1>
+    <p class="mt-6 text-navy-800">
+      <a
+        href="https://linkedin.com/in/pitzil"
+        class="underline decoration-sage-500 underline-offset-2 hover:text-sage-700"
+        >linkedin.com/in/pitzil</a
+      >
+      <span class="mx-2 text-navy-800/50">·</span>
+      <a
+        href="mailto:pcastellanos24@apu.edu"
+        class="underline decoration-sage-500 underline-offset-2 hover:text-sage-700"
+        >pcastellanos24@apu.edu</a
+      >
+    </p>
+  </div>
+</section>

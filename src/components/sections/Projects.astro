@@ -1,0 +1,123 @@
+---
+import { Image } from "astro:assets";
+import projectsBg from "../../assets/photos/bithiahs-table.jpeg";
+---
+
+<section class="relative overflow-hidden">
+  <Image
+    src={projectsBg}
+    alt=""
+    widths={[800, 1600, 2400]}
+    sizes="100vw"
+    class="absolute inset-0 h-full w-full object-cover object-[50%_30%] grayscale blur-sm"
+  />
+  <div
+    class="absolute inset-0"
+    style="background-color: rgba(250, 247, 238, 0.8);"
+  ></div>
+
+  <div class="relative mx-auto max-w-5xl px-6 py-20">
+    <h1 class="font-display text-3xl font-semibold text-navy-950">Projects</h1>
+
+    <div class="mt-8 grid gap-6 lg:grid-cols-2">
+      <article class="rounded-xl border border-navy-950/15 bg-white p-6">
+        <h2 class="font-display text-2xl font-semibold text-navy-950">
+          CVBuilder: offline infrastructure for a Ugandan community school
+        </h2>
+        <p class="mt-1 text-sm text-sage-700">
+          Watoto, Intl. · Kampala, Uganda · Built February – June 2026
+        </p>
+        <div class="mt-4 space-y-4 text-navy-800">
+          <p>
+            The community school this was built for doesn't have reliable
+            power, and it doesn't have stable internet. Most software
+            assumes both. CVBuilder is a resume-building application
+            designed around the opposite assumption: that connectivity
+            might never come, and the system still has to work.
+          </p>
+          <p>
+            Instead of relying on a remote server, the entire application
+            runs on a LattePanda Iota, a single-board edge computer small
+            and power-efficient enough to operate in a low-resource
+            environment. A GL.iNet Opal router turns that device into its
+            own private network, broadcasting a WPA3-secured hotspot that
+            students connect to directly. There's no route to the outside
+            internet because there doesn't need to be one. The app, the
+            database, and the network it runs on are all self-contained on
+            the same device.
+          </p>
+          <p>
+            The stack is a Django REST API backed by PostgreSQL, served
+            through Gunicorn, with a React frontend and an Nginx reverse
+            proxy handling HTTPS and captive-portal routing, so a student
+            connecting to the hotspot is dropped straight into the app
+            rather than having to find it themselves. Every architectural
+            decision traces back to the same constraint: this has to keep
+            working through power outages, with no IT support on hand, for
+            students who have never had a reason to trust that a piece of
+            technology would work for them.
+          </p>
+          <p>
+            The system is built and technically complete. Deployment is on
+            hold until the team can travel to Uganda. More detail on the
+            internship this came out of is on
+            the <a
+              href="/experience"
+              class="font-semibold text-sage-700 underline decoration-sage-500 underline-offset-2 hover:text-sage-500"
+              >Experience page</a
+            >.
+          </p>
+        </div>
+      </article>
+
+      <article class="rounded-xl border border-navy-950/15 bg-white p-6">
+        <h2 class="font-display text-2xl font-semibold text-navy-950">
+          Scorecast: predicting international soccer outcomes
+        </h2>
+        <p class="mt-1 text-sm text-sage-700">
+          Python, scikit-learn, Gradio · Built around the 2026 FIFA World Cup
+        </p>
+        <div class="mt-4 space-y-4 text-navy-800">
+          <p>
+            Scorecast is a machine learning web app that predicts
+            international soccer match outcomes, covering the full
+            historical international match dataset back to 1990 and built
+            around the 2026 FIFA World Cup.
+          </p>
+          <p>
+            Rather than predicting win, draw, or loss directly, Scorecast
+            models the expected goals each team will score using two
+            separate Poisson regression models, one for the home side and
+            one for the away side, then builds a score probability grid to
+            derive win, draw, and loss probabilities from it. That's more
+            expressive than a direct three-class classifier because it
+            captures the full distribution of possible scorelines, not just
+            the single most likely outcome.
+          </p>
+          <p>
+            Each prediction draws on Elo ratings that update after every
+            match with a competition-weighted K-factor, recency-weighted
+            form and goals over the last ten matches, head-to-head history
+            between the two teams, and match context like venue and
+            competitiveness. All of it is built chronologically, replaying
+            matches from 1990 onward so no future information leaks into
+            training.
+          </p>
+          <p>
+            The Gradio app has a dedicated 2026 World Cup tab covering all
+            48 qualified nations, plus a general tab for any matchup in the
+            dataset, each returning a win/draw/loss probability chart, team
+            stats, and a key-factors summary. Built with Python,
+            scikit-learn, scipy, pandas, NumPy, and Gradio, using Kaggle's
+            historical match and FIFA ranking datasets.
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <p class="mt-8 text-sm text-navy-800/70">
+      Looking ahead: a data system for Bithiah's Family Services, replacing
+      years of Google Sheets documentation, starting spring 2027.
+    </p>
+  </div>
+</section>

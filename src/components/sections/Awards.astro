@@ -1,0 +1,71 @@
+---
+import { Image } from "astro:assets";
+import awardsBg from "../../assets/photos/awards-bg.jpeg";
+
+const awards = [
+  {
+    title: "Girl Scout Gold Award & Lifetime Member",
+    body: "For translating a court-mandated training manual into Spanish and building mental health resources for youth in foster care. Full story on the Advocacy page.",
+    href: "/advocacy",
+  },
+  {
+    title: "APU Trustees Scholar",
+    body: "Awarded for a 4.22 GPA and Valedictorian status at Walnut High School.",
+  },
+  {
+    title: "Hispanic Information Technology Executive Council (HITEC) Scholar",
+    body: "Selected for academic and vocational excellence.",
+  },
+  {
+    title: "Linux Foundation Inclusivity Scholar",
+    body: "Selected to attend Open Source Summit North America 2026.",
+  },
+  {
+    title: "Seal of Biliteracy in Spanish",
+    body: "Recognized for proficiency in both Spanish and English.",
+  },
+  {
+    title: "Valedictorian, Walnut High School",
+    body: "Graduated at the top of my class.",
+  },
+];
+---
+
+<section class="relative overflow-hidden">
+  <Image
+    src={awardsBg}
+    alt=""
+    widths={[800, 1600, 2400]}
+    sizes="100vw"
+    class="absolute inset-0 h-full w-full object-cover object-[45%_30%] grayscale blur-sm"
+  />
+  <div
+    class="absolute inset-0"
+    style="background-color: rgba(250, 247, 238, 0.8);"
+  ></div>
+
+  <div class="relative mx-auto max-w-3xl px-6 py-20">
+    <h1 class="font-display text-3xl font-semibold text-navy-950">Awards</h1>
+    <div class="mt-8 grid gap-6 sm:grid-cols-2">
+      {
+        awards.map((award) => (
+          <div class="rounded-xl border border-navy-950/15 bg-white p-6">
+            <h2 class="font-display text-lg font-semibold text-navy-950">
+              {award.href ? (
+                <a
+                  href={award.href}
+                  class="hover:text-sage-500"
+                >
+                  {award.title}
+                </a>
+              ) : (
+                award.title
+              )}
+            </h2>
+            <p class="mt-2 text-sm text-navy-800">{award.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

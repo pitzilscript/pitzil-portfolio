@@ -1,0 +1,61 @@
+---
+import { Image } from "astro:assets";
+import heroPresenting from "../../assets/photos/hero-linux-summit.jpeg";
+---
+
+<section
+  aria-label="Introduction"
+  class="relative flex min-h-screen items-end overflow-hidden bg-navy-950 text-ivory-50"
+>
+  <Image
+    src={heroPresenting}
+    alt="Pitzil Avila-Castellanos smiling and talking with colleagues over lunch at the Linux Foundation Open Source Summit, wearing a conference lanyard"
+    widths={[640, 1024, 1600, 2200]}
+    sizes="100vw"
+    class="absolute inset-0 h-full w-full scale-110 object-cover object-[46%_38%]"
+  />
+  <div
+    class="pointer-events-none absolute inset-0"
+    style="background: linear-gradient(to top, rgba(20,28,36,1) 0%, rgba(20,28,36,0.75) 45%, rgba(20,28,36,0.15) 100%);"
+  >
+  </div>
+
+  <div class="relative z-10 mx-auto w-full max-w-5xl px-6 pb-16 pt-32 text-center sm:text-left">
+    <h1 class="font-display text-4xl font-semibold tracking-wide drop-shadow-md sm:text-5xl">
+      Pitzil Avila-Castellanos
+    </h1>
+    <p class="mt-3 font-display text-sm uppercase tracking-[0.3em] text-sage-300">
+      Tradition. Transformed.
+    </p>
+    <p class="mt-6 text-lg text-ivory-100 drop-shadow-md sm:text-xl">
+      Humanitarian technology, building for social impact.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-4 text-sm sm:justify-start">
+      <a
+        href="mailto:pcastellanos24@apu.edu"
+        class="min-h-11 rounded-md bg-sage-500 px-5 py-2.5 font-semibold text-navy-950 hover:bg-sage-300"
+      >
+        Email
+      </a>
+      <a
+        href="https://linkedin.com/in/pitzil"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="min-h-11 rounded-md border border-sage-500 px-5 py-2.5 font-semibold text-ivory-50 hover:border-sage-300 hover:text-sage-300"
+      >
+        LinkedIn
+      </a>
+      <a
+        href="https://github.com/pitzilscript"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="min-h-11 rounded-md border border-sage-500 px-5 py-2.5 font-semibold text-ivory-50 hover:border-sage-300 hover:text-sage-300"
+      >
+        GitHub
+      </a>
+    </div>
+    <p class="mt-6 text-xs text-ivory-100/70">
+      Photo courtesy of the Linux Foundation, Open Source Summit North America.
+    </p>
+  </div>
+</section>

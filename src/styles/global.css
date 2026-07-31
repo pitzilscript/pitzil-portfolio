@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@import "@fontsource-variable/karla";
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/600.css";
+@import "@fontsource/playfair-display/700.css";
+
+@theme {
+  /* Derived from Pitzil's LinkedIn banner: Maya calendar-stone glyph
+     wired into circuit traces, dark navy ground, sage accent, ivory ink. */
+  --color-navy-950: #141c24;
+  --color-navy-900: #1b2732;
+  --color-navy-800: #24343f;
+  --color-navy-700: #324854;
+
+  --color-sage-300: #a9c2ac;
+  --color-sage-500: #7c9885;
+  --color-sage-700: #506656;
+
+  --color-ivory-50: #faf7ee;
+  --color-ivory-100: #f4efe1;
+  --color-ivory-300: #e4dcc4;
+
+  --font-display: "Playfair Display", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Karla Variable", "Karla", system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-ivory-50);
+    color: var(--color-navy-950);
+    font-weight: 700;
+  }
+
+  /* Visible, high-contrast focus ring for keyboard users on any background */
+  :focus-visible {
+    outline: 3px solid var(--color-sage-500);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-sage-300);
+    color: var(--color-navy-950);
+  }
+
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -3rem;
+    z-index: 50;
+    background-color: var(--color-ivory-50);
+    color: var(--color-navy-950);
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    transition: top 0.15s ease-in-out;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
+}

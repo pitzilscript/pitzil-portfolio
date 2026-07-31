@@ -1,0 +1,183 @@
+---
+import { Image } from "astro:assets";
+import experienceBg from "../../assets/photos/advocacy-bg.jpeg";
+import bithiahsTable from "../../assets/photos/bithiahs-table.jpeg";
+import iyapLogo from "../../assets/logos/iyap.webp";
+import watotoLogo from "../../assets/logos/watoto-black.png";
+import apuLogo from "../../assets/logos/apu.png";
+import neweggLogo from "../../assets/logos/newegg.svg";
+import bithiahsLogo from "../../assets/logos/bithiahs.png";
+
+const roles = [
+  {
+    role: "Systems, Intelligence, and Monitoring Intern",
+    org: "International Youth Alliance for Peace",
+    meta: "Colombo, Sri Lanka · July 2026 – Present",
+    logo: { src: iyapLogo, alt: "International Youth Alliance for Peace logo" },
+    paragraphs: [
+      "I conduct structured discovery interviews with NGO partners across South Asia and Africa, synthesizing what I learn into organizational assessment profiles that inform IYAP's international partnership strategy. This feeds into IYAP's Global Alliance and Stakeholder Intelligence System, laying groundwork for a planned PostgreSQL and Django database to centralize international program partnership data.",
+      "I also support reporting and monitoring system improvements by organizing and structuring multi-stakeholder data across IYAP's international programs, and produce written content, including a published blog on education equity, stakeholder briefings, and professional communications, reaching volunteers across six or more countries.",
+    ],
+  },
+  {
+    role: "Software Engineering Intern",
+    org: "Watoto, Intl.",
+    meta: "Kampala, Uganda · February 2026 – June 2026",
+    logo: { src: watotoLogo, alt: "Watoto, Intl. logo" },
+    paragraphs: [
+      "I engineered an offline-first edge server on a LattePanda Iota with GL.iNet Opal networking, broadcasting a private WPA3 hotspot that serves a Django application with zero internet dependency, built to withstand power outages in a Ugandan community school.",
+      "The production stack includes a Django REST API, a PostgreSQL data layer designed to manage complex relational models, a React frontend, Gunicorn WSGI, and an Nginx reverse proxy with HTTPS, all running on the edge device itself. The system is built and technically complete. Deployment is on hold until I can travel, so I'm careful not to overstate it as already in use.",
+    ],
+    link: { href: "/projects", label: "Read the Projects case study" },
+  },
+  {
+    role: "Junior System Administrator",
+    org: "Azusa Pacific University",
+    meta: "Azusa, CA · January 2026 – Present",
+    logo: { src: apuLogo, alt: "Azusa Pacific University seal" },
+    paragraphs: [
+      "I developed a Python-based automated audit system that ingests and analyzes endpoint data across more than 700 macOS devices, surfacing compliance patterns against the university's naming conventions.",
+      "I also standardize Mobile Device Management workflows using Jamf Pro, Intune, and Apple School Manager to streamline campus-wide technology deployments and reduce manual overhead.",
+    ],
+  },
+  {
+    role: "Data Analyst Intern",
+    org: "Newegg Commerce, Inc.",
+    meta: "Diamond Bar, CA · June 2025 – August 2025",
+    logo: { src: neweggLogo, alt: "Newegg logo" },
+    paragraphs: [
+      "I conducted a 55-point customer experience audit, applying structured data analysis to identify behavioral patterns across key touchpoints, and synthesized the findings into executive presentations for more than ten company leaders and C-suite executives.",
+      "I also produced weekly Excel-based reports on customer experience trends for direct C-suite review. This internship is where data analysis clicked for me: advocacy is nothing without the numbers to back it up.",
+    ],
+  },
+  {
+    role: "Coordinator of Volunteers",
+    org: "Bithiah's Family Services",
+    meta: "Pomona, CA · September 2020 – Present (volunteer since 2014)",
+    logo: { src: bithiahsLogo, alt: "Bithiah's Family Services logo" },
+    paragraphs: [
+      "I lead a bilingual initiative that has translated more than 80 pages of materials into Spanish for the Latinx families we serve, and I've coordinated more than 50 supply distribution events for foster and adoptive families.",
+      "This is where my advocacy work started, when I was six years old, and it's still where it's rooted.",
+    ],
+    image: {
+      src: bithiahsTable,
+      alt: "Pitzil Avila-Castellanos at a Bithiah's Family Services volunteer table during a community event",
+      credit: "Photo courtesy of Bithiah's Family Services",
+    },
+  },
+];
+---
+
+<section class="relative overflow-hidden">
+  <Image
+    src={experienceBg}
+    alt=""
+    widths={[800, 1600, 2400]}
+    sizes="100vw"
+    class="absolute inset-0 h-full w-full object-cover object-[55%_25%] grayscale blur-sm"
+  />
+  <div
+    class="absolute inset-0"
+    style="background-color: rgba(250, 247, 238, 0.8);"
+  ></div>
+
+  <div class="relative mx-auto max-w-3xl px-6 py-20">
+    <h1 class="font-display text-3xl font-semibold text-navy-950">Experience</h1>
+    <p class="mt-3 text-navy-800">Tap or click a role to read more.</p>
+    <div class="mt-8 grid gap-4 sm:grid-cols-2" data-experience-grid>
+      {
+        roles.map((entry) => (
+          <details class="group rounded-xl border border-navy-950/15 bg-white open:sm:col-span-2">
+          <summary class="flex cursor-pointer list-none items-center gap-4 p-4 [&::-webkit-details-marker]:hidden">
+            <span
+              class:list={[
+                "flex h-14 w-14 shrink-0 items-center justify-center rounded-md p-2 ring-1 ring-navy-950/10",
+                entry.logo.darkChip ? "bg-navy-950" : "bg-white",
+              ]}
+            >
+              <Image
+                src={entry.logo.src}
+                alt={entry.logo.alt}
+                width={80}
+                class="max-h-full max-w-full object-contain"
+              />
+            </span>
+            <span class="flex-1">
+              <span class="block font-display text-base font-semibold leading-tight text-navy-950">
+                {entry.role}
+              </span>
+              <span class="block text-sm text-sage-700">{entry.org}</span>
+            </span>
+            <svg
+              viewBox="0 0 20 20"
+              fill="none"
+              class="h-5 w-5 shrink-0 text-navy-800 transition-transform group-open:rotate-180"
+              aria-hidden="true"
+            >
+              <path
+                d="M5 7.5L10 12.5L15 7.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </summary>
+          <div class="space-y-4 border-t border-navy-950/10 px-4 pb-4 pt-4 text-navy-800">
+            <p class="text-sm text-sage-700">
+              {entry.meta}
+            </p>
+            {entry.paragraphs.map((p) => (
+              <p>{p}</p>
+            ))}
+            {entry.link && (
+              <a
+                href={entry.link.href}
+                class="inline-block font-semibold text-sage-700 underline decoration-sage-500 underline-offset-2 hover:text-sage-500"
+              >
+                {entry.link.label}
+              </a>
+            )}
+            {entry.image && (
+              <figure class="max-w-md">
+                <Image
+                  src={entry.image.src}
+                  alt={entry.image.alt}
+                  widths={[400, 800]}
+                  sizes="(min-width: 640px) 28rem, 90vw"
+                  class="w-full rounded-lg object-cover shadow-md"
+                />
+                <figcaption class="mt-2 text-xs text-navy-800/70">
+                  {entry.image.credit}
+                </figcaption>
+              </figure>
+            )}
+          </div>
+        </details>
+      ))
+    }
+    </div>
+  </div>
+</section>
+
+<script>
+  const grid = document.querySelector<HTMLElement>("[data-experience-grid]");
+
+  if (grid) {
+    Array.from(grid.children).forEach((item) => {
+      if (!(item instanceof HTMLDetailsElement)) return;
+
+      item.addEventListener("toggle", () => {
+        if (!item.open) return;
+
+        const precedingSiblings: Element[] = [];
+        let node = grid.firstElementChild;
+        while (node && node !== item) {
+          precedingSiblings.push(node);
+          node = node.nextElementSibling;
+        }
+        precedingSiblings.forEach((sibling) => grid.appendChild(sibling));
+      });
+    });
+  }
+</script>

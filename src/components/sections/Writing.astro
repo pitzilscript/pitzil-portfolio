@@ -1,0 +1,23 @@
+---
+import { Image } from "astro:assets";
+import iyapLogo from "../../assets/logos/iyap.webp";
+---
+
+<section class="mx-auto max-w-3xl px-6 py-20">
+  <h1 class="font-display text-3xl font-semibold text-navy-950">Writing</h1>
+  <div class="mt-6 flex items-center gap-4">
+    <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-md bg-white p-2 ring-1 ring-navy-950/10">
+      <Image
+        src={iyapLogo}
+        alt="International Youth Alliance for Peace logo"
+        width={80}
+        class="max-h-full max-w-full object-contain"
+      />
+    </span>
+    <p class="text-navy-800">
+      I'll be publishing my writing here soon, starting with a piece on
+      education equity written for the International Youth Alliance for
+      Peace.
+    </p>
+  </div>
+</section>
