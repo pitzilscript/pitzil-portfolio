@@ -82,7 +82,13 @@ export const handler = async (event) => {
 
   const propertyId = process.env.GA_PROPERTY_ID;
   const clientEmail = process.env.GA_CLIENT_EMAIL;
-  const privateKey = process.env.GA_PRIVATE_KEY.replace(/\\n/g, "\n");
+  const rawKey = process.env.GA_PRIVATE_KEY;
+
+  if (!propertyId || !clientEmail || !rawKey) {
+    return { statusCode: 500, body: JSON.stringify({ error: `Missing env vars: ${!propertyId ? "GA_PROPERTY_ID " : ""}${!clientEmail ? "GA_CLIENT_EMAIL " : ""}${!rawKey ? "GA_PRIVATE_KEY" : ""}` }) };
+  }
+
+  const privateKey = rawKey.replace(/\\n/g, "\n");
 
   let accessToken;
   try {
