@@ -143,8 +143,10 @@ import Layout from "../layouts/Layout.astro";
         body: JSON.stringify({ password }),
       });
       if (res.status === 401) throw new Error("unauthorized");
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error || "server error");
+      const text = await res.text();
+      let json;
+      try { json = JSON.parse(text); } catch { throw new Error(`HTTP ${res.status}: ${text.slice(0, 300)}`); }
+      if (!res.ok) throw new Error(json.error || `HTTP ${res.status}`);
       return json;
     }
 
