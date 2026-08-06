@@ -118,6 +118,23 @@ export const handler = async (event) => {
         runReport(accessToken, propertyId, [{ name: "city" }], [{ name: "totalUsers" }], [{ startDate: "2020-01-01", endDate: "today" }], orderByMetric("totalUsers"), 20),
       ]);
 
+    // Normalize page paths: strip trailing slashes (except "/") and merge duplicates
+    if (pagesReport.rows) {
+      const merged = new Map();
+      for (const row of pagesReport.rows) {
+        const raw = row.dimensionValues[0].value;
+        const path = raw.length > 1 ? raw.replace(/\/$/, "") : raw;
+        const views = Number(row.metricValues[0].value);
+        merged.set(path, (merged.get(path) || 0) + views);
+      }
+      pagesReport.rows = Array.from(merged.entries())
+        .sort((a, b) => b[1] - a[1])
+        .map(([path, views]) => ({
+          dimensionValues: [{ value: path }],
+          metricValues: [{ value: String(views) }],
+        }));
+    }
+
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
