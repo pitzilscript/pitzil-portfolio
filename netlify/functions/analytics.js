@@ -1,4 +1,4 @@
-const crypto = require("crypto");
+import crypto from "crypto";
 
 function base64url(str) {
   return Buffer.from(str)
@@ -39,6 +39,9 @@ async function getAccessToken(clientEmail, privateKey) {
   });
 
   const tokenData = await tokenRes.json();
+  if (!tokenData.access_token) {
+    throw new Error("Token exchange failed: " + JSON.stringify(tokenData));
+  }
   return tokenData.access_token;
 }
 
@@ -61,7 +64,7 @@ async function runReport(accessToken, propertyId, dimensions, metrics, dateRange
   return res.json();
 }
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method not allowed" };
   }
