@@ -1,0 +1,198 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Analytics | Pitzil Avila-Castellanos"
+  description="Private site analytics dashboard."
+>
+  <style>
+    #login { display: flex; min-height: 100vh; align-items: center; justify-content: center; background: #141c24; }
+    #dashboard { display: none; background: #faf7ee; min-height: 100vh; padding: 3rem 1.5rem; }
+    .stat-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-top: 1.5rem; }
+    .stat-card { background: white; border: 1px solid rgba(20,28,36,0.12); border-radius: 0.75rem; padding: 1.25rem 1.5rem; }
+    .stat-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #506656; font-family: system-ui, sans-serif; }
+    .stat-value { font-size: 2rem; font-weight: 700; color: #141c24; font-family: system-ui, sans-serif; margin-top: 0.25rem; }
+    .section { margin-top: 2.5rem; }
+    .section h2 { font-family: "Libre Baskerville", Georgia, serif; font-size: 1.25rem; font-weight: 400; color: #141c24; margin-bottom: 1rem; }
+    table { width: 100%; border-collapse: collapse; background: white; border-radius: 0.75rem; overflow: hidden; border: 1px solid rgba(20,28,36,0.12); }
+    th { text-align: left; padding: 0.75rem 1rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: #506656; font-family: system-ui, sans-serif; background: #f4efe1; }
+    td { padding: 0.65rem 1rem; font-size: 0.875rem; color: #24343f; font-family: system-ui, sans-serif; border-top: 1px solid rgba(20,28,36,0.07); }
+    tr:hover td { background: #faf7ee; }
+    .bar-wrap { background: #e4dcc4; border-radius: 9999px; height: 6px; margin-top: 4px; }
+    .bar { background: #506656; border-radius: 9999px; height: 6px; }
+    .two-col { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; }
+    @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+    .chart-wrap { background: white; border: 1px solid rgba(20,28,36,0.12); border-radius: 0.75rem; padding: 1.25rem; }
+    .chart-bars { display: flex; align-items: flex-end; gap: 3px; height: 80px; margin-top: 0.75rem; }
+    .chart-bar { flex: 1; background: #7c9885; border-radius: 3px 3px 0 0; min-height: 2px; position: relative; }
+    .chart-bar:hover { background: #506656; }
+    .chart-label { font-size: 0.6rem; color: #506656; text-align: center; margin-top: 4px; font-family: system-ui, sans-serif; }
+    #error-msg { color: #f87171; font-size: 0.875rem; margin-top: 0.75rem; font-family: system-ui, sans-serif; }
+    .max-w { max-width: 56rem; margin: 0 auto; }
+    h1.page-title { font-family: "Libre Baskerville", Georgia, serif; font-size: 1.75rem; font-weight: 400; color: #141c24; }
+    .updated { font-size: 0.75rem; color: #506656; font-family: system-ui, sans-serif; margin-top: 0.25rem; }
+  </style>
+
+  <!-- Login screen -->
+  <div id="login">
+    <div style="width:100%;max-width:20rem;padding:2rem;">
+      <p style="font-family:'Libre Baskerville',Georgia,serif;font-size:1.25rem;color:#faf7ee;margin-bottom:1.25rem;text-align:center;">Analytics</p>
+      <input
+        id="pw-input"
+        type="password"
+        placeholder="Password"
+        style="width:100%;padding:0.75rem 1rem;border-radius:0.5rem;border:1px solid #324854;background:#1b2732;color:#faf7ee;font-size:1rem;font-family:system-ui,sans-serif;box-sizing:border-box;"
+      />
+      <button
+        id="pw-btn"
+        style="width:100%;margin-top:0.75rem;padding:0.75rem;border-radius:0.5rem;background:#506656;color:#faf7ee;font-size:0.9rem;font-family:system-ui,sans-serif;border:none;cursor:pointer;"
+      >Enter</button>
+      <p id="error-msg" style="display:none;text-align:center;">Incorrect password.</p>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard">
+    <div class="max-w">
+      <h1 class="page-title">Analytics</h1>
+      <p class="updated" id="updated-time"></p>
+
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-label">Total Visitors</div><div class="stat-value" id="s-total">—</div></div>
+        <div class="stat-card"><div class="stat-label">This Week</div><div class="stat-value" id="s-week">—</div></div>
+        <div class="stat-card"><div class="stat-label">Total Sessions</div><div class="stat-value" id="s-sessions">—</div></div>
+        <div class="stat-card"><div class="stat-label">Total Page Views</div><div class="stat-value" id="s-views">—</div></div>
+      </div>
+
+      <div class="section">
+        <h2>Visitors — Last 30 Days</h2>
+        <div class="chart-wrap">
+          <div class="chart-bars" id="daily-chart"></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Pages Ranked by Views</h2>
+        <table id="pages-table">
+          <thead><tr><th>Page</th><th>Views</th><th style="width:30%"></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="two-col section">
+        <div>
+          <h2>By Country</h2>
+          <table id="country-table">
+            <thead><tr><th>Country</th><th>Visitors</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div>
+          <h2>By City</h2>
+          <table id="city-table">
+            <thead><tr><th>City</th><th>Visitors</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    function fmt(n) { return Number(n).toLocaleString(); }
+
+    function getVal(report, rowIndex, metricIndex) {
+      return report?.rows?.[rowIndex]?.metricValues?.[metricIndex]?.value ?? "0";
+    }
+
+    function buildTable(tableId, rows, getLabel, getValue, showBar) {
+      const tbody = document.querySelector(`#${tableId} tbody`);
+      if (!rows || rows.length === 0) { tbody.innerHTML = '<tr><td colspan="3">No data yet.</td></tr>'; return; }
+      const max = Number(rows[0].metricValues[0].value);
+      tbody.innerHTML = rows.map(row => {
+        const label = getLabel(row);
+        const val = Number(row.metricValues[0].value);
+        const pct = max > 0 ? Math.round((val / max) * 100) : 0;
+        const bar = showBar ? `<td><div class="bar-wrap"><div class="bar" style="width:${pct}%"></div></div></td>` : "";
+        return `<tr><td>${label}</td><td>${fmt(val)}</td>${bar}</tr>`;
+      }).join("");
+    }
+
+    function buildChart(dailyData) {
+      const wrap = document.getElementById("daily-chart");
+      if (!dailyData?.rows?.length) { wrap.innerHTML = '<p style="font-size:0.8rem;color:#506656">No data yet.</p>'; return; }
+      const vals = dailyData.rows.map(r => Number(r.metricValues[0].value));
+      const max = Math.max(...vals, 1);
+      wrap.innerHTML = vals.map((v, i) => {
+        const row = dailyData.rows[i];
+        const d = row.dimensionValues[0].value;
+        const label = `${d.slice(4,6)}/${d.slice(6,8)}`;
+        const h = Math.max(Math.round((v / max) * 80), 2);
+        return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+          <div class="chart-bar" style="height:${h}px;width:100%;" title="${label}: ${fmt(v)} visitors"></div>
+          ${i % 5 === 0 ? `<div class="chart-label">${label}</div>` : '<div class="chart-label"></div>'}
+        </div>`;
+      }).join("");
+    }
+
+    async function fetchAnalytics(password) {
+      const res = await fetch("/.netlify/functions/analytics", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      if (res.status === 401) throw new Error("unauthorized");
+      if (!res.ok) throw new Error("server error");
+      return res.json();
+    }
+
+    document.getElementById("pw-btn").addEventListener("click", async () => {
+      const pw = document.getElementById("pw-input").value;
+      const errEl = document.getElementById("error-msg");
+      const btn = document.getElementById("pw-btn");
+      btn.textContent = "Loading…";
+      btn.disabled = true;
+      errEl.style.display = "none";
+
+      try {
+        const data = await fetchAnalytics(pw);
+
+        // Stats
+        document.getElementById("s-total").textContent = fmt(getVal(data.total, 0, 0));
+        document.getElementById("s-week").textContent = fmt(getVal(data.week, 0, 0));
+        document.getElementById("s-sessions").textContent = fmt(getVal(data.total, 0, 1));
+        document.getElementById("s-views").textContent = fmt(getVal(data.total, 0, 2));
+
+        // Chart
+        buildChart(data.daily);
+
+        // Pages
+        buildTable("pages-table", data.pages?.rows, r => r.dimensionValues[0].value, r => r.metricValues[0].value, true);
+
+        // Countries
+        buildTable("country-table", data.countries?.rows, r => r.dimensionValues[0].value, r => r.metricValues[0].value, false);
+
+        // Cities
+        buildTable("city-table", data.cities?.rows, r => r.dimensionValues[0].value, r => r.metricValues[0].value, false);
+
+        // Updated time
+        document.getElementById("updated-time").textContent = "Last updated: " + new Date().toLocaleString();
+
+        // Show dashboard
+        document.getElementById("login").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+
+      } catch (e) {
+        errEl.style.display = "block";
+        errEl.textContent = e.message === "unauthorized" ? "Incorrect password." : "Something went wrong. Try again.";
+        btn.textContent = "Enter";
+        btn.disabled = false;
+      }
+    });
+
+    document.getElementById("pw-input").addEventListener("keydown", e => {
+      if (e.key === "Enter") document.getElementById("pw-btn").click();
+    });
+  </script>
+</Layout>
