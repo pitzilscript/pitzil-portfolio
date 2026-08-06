@@ -188,7 +188,7 @@ import Layout from "../layouts/Layout.astro";
 
       } catch (e) {
         errEl.style.display = "block";
-        errEl.textContent = e.message === "unauthorized" ? "Incorrect password." : "Something went wrong. Try again.";
+        errEl.textContent = e.message === "unauthorized" ? "Incorrect password." : e.message;
         btn.textContent = "Enter";
         btn.disabled = false;
       }
