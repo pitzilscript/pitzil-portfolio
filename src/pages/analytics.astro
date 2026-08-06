@@ -72,23 +72,8 @@ import Layout from "../layouts/Layout.astro";
         <h2>Visitor Map</h2>
         <div class="map-wrap">
           <svg id="world-map" viewBox="0 0 360 180" xmlns="http://www.w3.org/2000/svg">
-            <!-- Ocean: viewBox 0 0 360 180 → x = lng+180, y = 90-lat -->
             <rect width="360" height="180" fill="#dde9f3"/>
-            <!-- North America -->
-            <polygon points="12,18 35,30 55,41 60,55 70,67 92,74 100,65 115,45 128,43 12,18" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.3"/>
-            <!-- Greenland -->
-            <polygon points="108,30 162,30 140,7" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.3"/>
-            <!-- South America -->
-            <polygon points="103,82 145,85 145,95 130,123 111,145 105,135 103,82" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.3"/>
-            <!-- Europe -->
-            <polygon points="171,54 171,46 175,42 185,30 195,19 210,19 220,25 220,35 220,54 195,52 171,54" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.3"/>
-            <!-- Africa -->
-            <polygon points="163,55 217,53 231,78 220,101 213,125 197,125 188,95 163,76 163,55" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.3"/>
-            <!-- Asia main body -->
-            <polygon points="206,54 220,35 240,22 280,18 340,18 348,22 320,35 310,55 325,46 310,58 295,98 280,88 272,68 260,82 253,72 237,70 225,78 216,54 206,54" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.3"/>
-            <!-- Australia -->
-            <polygon points="294,112 333,117 333,127 313,134 294,125 294,112" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.3"/>
-            <!-- Dots container (filled by JS) -->
+            <path id="land-path" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.3"/>
             <g id="map-dots"></g>
           </svg>
         </div>
@@ -196,6 +181,33 @@ import Layout from "../layouts/Layout.astro";
       wrap.innerHTML = `<svg viewBox="0 0 ${W} ${H + labelH}" style="width:100%;height:auto;display:block;">${bars}</svg>`;
     }
 
+    async function loadWorldMap() {
+      try {
+        const [{ feature }, world] = await Promise.all([
+          import("https://cdn.jsdelivr.net/npm/topojson-client@3/+esm"),
+          fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json").then(r => r.json())
+        ]);
+        const land = feature(world, world.objects.land);
+        const W = 360, H = 180;
+        function ring(coords) {
+          return coords.map(([lng, lat], i) =>
+            `${i === 0 ? "M" : "L"}${((lng + 180) / 360 * W).toFixed(2)},${((90 - lat) / 180 * H).toFixed(2)}`
+          ).join("") + "Z";
+        }
+        function geomPath(g) {
+          if (!g) return "";
+          if (g.type === "Polygon") return g.coordinates.map(ring).join("");
+          if (g.type === "MultiPolygon") return g.coordinates.flat().map(ring).join("");
+          return "";
+        }
+        const d = land.type === "Feature" ? geomPath(land.geometry)
+          : land.features?.map(f => geomPath(f.geometry)).join("") ?? "";
+        document.getElementById("land-path").setAttribute("d", d);
+      } catch (e) {
+        console.warn("World map failed to load:", e);
+      }
+    }
+
     function buildMap(countryRows) {
       const dotsEl = document.getElementById("map-dots");
       if (!countryRows?.length) return;
@@ -254,6 +266,7 @@ import Layout from "../layouts/Layout.astro";
         document.getElementById("updated-time").textContent = "Last updated: " + new Date().toLocaleString();
 
         buildChart(data.daily);
+        loadWorldMap();
         buildMap(data.countries?.rows);
         buildTable("pages-table", data.pages?.rows, r => r.dimensionValues[0].value, true);
         buildTable("country-table", data.countries?.rows, r => r.dimensionValues[0].value, false);
