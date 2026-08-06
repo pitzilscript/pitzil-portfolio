@@ -143,8 +143,9 @@ import Layout from "../layouts/Layout.astro";
         body: JSON.stringify({ password }),
       });
       if (res.status === 401) throw new Error("unauthorized");
-      if (!res.ok) throw new Error("server error");
-      return res.json();
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "server error");
+      return json;
     }
 
     document.getElementById("pw-btn").addEventListener("click", async () => {
