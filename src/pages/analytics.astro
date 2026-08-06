@@ -29,10 +29,10 @@ import Layout from "../layouts/Layout.astro";
     @media(max-width:640px){ .two-col{ grid-template-columns:1fr; } }
     /* Bar chart */
     .chart-wrap { background:white; border:1px solid rgba(20,28,36,0.12); border-radius:0.75rem; padding:1.25rem; }
-    #daily-chart { display:flex; align-items:flex-end; gap:2px; height:100px; }
+    #daily-chart { display:flex; align-items:stretch; gap:2px; height:100px; }
     .day-col { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; }
     .day-bar { width:100%; background:#7c9885; border-radius:2px 2px 0 0; min-height:2px; }
-    .day-label { font-size:0.55rem; color:#7c9885; margin-top:3px; font-family:system-ui,sans-serif; white-space:nowrap; }
+    .day-label { font-size:0.55rem; color:#7c9885; margin-top:3px; font-family:system-ui,sans-serif; white-space:nowrap; flex-shrink:0; }
     /* World map */
     .map-wrap { background:white; border:1px solid rgba(20,28,36,0.12); border-radius:0.75rem; overflow:hidden; }
     #world-map { width:100%; height:auto; display:block; }
@@ -74,26 +74,23 @@ import Layout from "../layouts/Layout.astro";
       <div class="section">
         <h2>Visitor Map</h2>
         <div class="map-wrap">
-          <svg id="world-map" viewBox="0 0 960 480" xmlns="http://www.w3.org/2000/svg">
-            <!-- Ocean -->
-            <rect width="960" height="480" fill="#dde9f3"/>
-            <!-- Simplified continent outlines -->
+          <svg id="world-map" viewBox="0 0 360 180" xmlns="http://www.w3.org/2000/svg">
+            <!-- Ocean: viewBox 0 0 360 180 → x = lng+180, y = 90-lat -->
+            <rect width="360" height="180" fill="#dde9f3"/>
             <!-- North America -->
-            <polygon points="20,18 341,18 341,171 248,214 264,178 169,154 150,110 104,80 39,30" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.5"/>
+            <polygon points="12,18 35,30 55,41 60,55 70,67 92,74 100,65 115,45 128,43 12,18" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.3"/>
             <!-- Greenland -->
-            <polygon points="214,6 321,6 321,60 214,60" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.5"/>
+            <polygon points="108,30 162,30 140,7" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.3"/>
             <!-- South America -->
-            <polygon points="98,78 128,78 146,95 128,126 110,146 98,78" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.5"/>
+            <polygon points="103,82 145,85 145,95 130,123 111,145 105,135 103,82" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.3"/>
             <!-- Europe -->
-            <polygon points="161,54 220,54 220,18 200,30 170,42 161,54" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.5"/>
+            <polygon points="171,54 171,46 175,42 185,30 195,19 210,19 220,25 220,35 220,54 195,52 171,54" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.3"/>
             <!-- Africa -->
-            <polygon points="162,52 232,52 232,80 222,95 214,126 198,126 162,74" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.5"/>
-            <!-- Asia (simplified) -->
-            <polygon points="220,54 260,80 280,84 290,70 310,54 325,45 320,35 320,18 280,18 240,30 220,54" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.5"/>
-            <!-- SE Asia peninsula -->
-            <polygon points="280,84 296,100 306,90 294,76 280,84" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.5"/>
+            <polygon points="163,55 217,53 231,78 220,101 213,125 197,125 188,95 163,76 163,55" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.3"/>
+            <!-- Asia main body -->
+            <polygon points="206,54 220,35 240,22 280,18 340,18 348,22 320,35 310,55 325,46 310,58 295,98 280,88 272,68 260,82 253,72 237,70 225,78 216,54 206,54" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.3"/>
             <!-- Australia -->
-            <polygon points="294,112 334,112 334,134 312,134 294,126" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.5"/>
+            <polygon points="294,112 333,117 333,127 313,134 294,125 294,112" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.3"/>
             <!-- Dots container (filled by JS) -->
             <g id="map-dots"></g>
           </svg>
@@ -157,9 +154,9 @@ import Layout from "../layouts/Layout.astro";
       "Egypt":[26.82,30.80],"Ghana":[7.95,-1.02],"Ethiopia":[9.14,40.49],
     };
 
-    // Equirectangular: SVG is 960x480, x=(lng+180)/360*960, y=(90-lat)/180*480
+    // Equirectangular matching viewBox="0 0 360 180": x=lng+180, y=90-lat
     function lngLatToSvg(lat, lng) {
-      return [(lng + 180) / 360 * 960, (90 - lat) / 180 * 480];
+      return [lng + 180, 90 - lat];
     }
 
     function fmt(n) { return Number(n).toLocaleString(); }
