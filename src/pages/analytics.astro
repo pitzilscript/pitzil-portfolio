@@ -7,48 +7,47 @@ import Layout from "../layouts/Layout.astro";
   description="Private site analytics dashboard."
 >
   <style>
-    #login { display: flex; min-height: 100vh; align-items: center; justify-content: center; background: #141c24; }
-    #dashboard { display: none; background: #faf7ee; min-height: 100vh; padding: 3rem 1.5rem; }
-    .stat-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-top: 1.5rem; }
-    .stat-card { background: white; border: 1px solid rgba(20,28,36,0.12); border-radius: 0.75rem; padding: 1.25rem 1.5rem; }
-    .stat-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #506656; font-family: system-ui, sans-serif; }
-    .stat-value { font-size: 2rem; font-weight: 700; color: #141c24; font-family: system-ui, sans-serif; margin-top: 0.25rem; }
-    .section { margin-top: 2.5rem; }
-    .section h2 { font-family: "Libre Baskerville", Georgia, serif; font-size: 1.25rem; font-weight: 400; color: #141c24; margin-bottom: 1rem; }
-    table { width: 100%; border-collapse: collapse; background: white; border-radius: 0.75rem; overflow: hidden; border: 1px solid rgba(20,28,36,0.12); }
-    th { text-align: left; padding: 0.75rem 1rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: #506656; font-family: system-ui, sans-serif; background: #f4efe1; }
-    td { padding: 0.65rem 1rem; font-size: 0.875rem; color: #24343f; font-family: system-ui, sans-serif; border-top: 1px solid rgba(20,28,36,0.07); }
-    tr:hover td { background: #faf7ee; }
-    .bar-wrap { background: #e4dcc4; border-radius: 9999px; height: 6px; margin-top: 4px; }
-    .bar { background: #506656; border-radius: 9999px; height: 6px; }
-    .two-col { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; }
-    @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
-    .chart-wrap { background: white; border: 1px solid rgba(20,28,36,0.12); border-radius: 0.75rem; padding: 1.25rem; }
-    .chart-bars { display: flex; align-items: flex-end; gap: 3px; height: 80px; margin-top: 0.75rem; }
-    .chart-bar { flex: 1; background: #7c9885; border-radius: 3px 3px 0 0; min-height: 2px; position: relative; }
-    .chart-bar:hover { background: #506656; }
-    .chart-label { font-size: 0.6rem; color: #506656; text-align: center; margin-top: 4px; font-family: system-ui, sans-serif; }
-    #error-msg { color: #f87171; font-size: 0.875rem; margin-top: 0.75rem; font-family: system-ui, sans-serif; }
-    .max-w { max-width: 56rem; margin: 0 auto; }
-    h1.page-title { font-family: "Libre Baskerville", Georgia, serif; font-size: 1.75rem; font-weight: 400; color: #141c24; }
-    .updated { font-size: 0.75rem; color: #506656; font-family: system-ui, sans-serif; margin-top: 0.25rem; }
+    #login { display:flex; min-height:100vh; align-items:center; justify-content:center; background:#141c24; }
+    #dashboard { display:none; background:#faf7ee; min-height:100vh; padding:3rem 1.5rem; }
+    .max-w { max-width:60rem; margin:0 auto; }
+    h1.page-title { font-family:"Libre Baskerville",Georgia,serif; font-size:1.75rem; font-weight:400; color:#141c24; }
+    .updated { font-size:0.75rem; color:#506656; font-family:system-ui,sans-serif; margin-top:0.25rem; }
+    .stat-grid { display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); margin-top:1.5rem; }
+    .stat-card { background:white; border:1px solid rgba(20,28,36,0.12); border-radius:0.75rem; padding:1.25rem 1.5rem; }
+    .stat-label { font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; color:#506656; font-family:system-ui,sans-serif; }
+    .stat-value { font-size:2rem; font-weight:700; color:#141c24; font-family:system-ui,sans-serif; margin-top:0.25rem; }
+    .section { margin-top:2.5rem; }
+    .section h2 { font-family:"Libre Baskerville",Georgia,serif; font-size:1.25rem; font-weight:400; color:#141c24; margin-bottom:1rem; }
+    .card { background:white; border:1px solid rgba(20,28,36,0.12); border-radius:0.75rem; overflow:hidden; }
+    table { width:100%; border-collapse:collapse; }
+    th { text-align:left; padding:0.65rem 1rem; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; color:#506656; font-family:system-ui,sans-serif; background:#f4efe1; }
+    td { padding:0.6rem 1rem; font-size:0.875rem; color:#24343f; font-family:system-ui,sans-serif; border-top:1px solid rgba(20,28,36,0.07); }
+    tr:hover td { background:#faf7ee; }
+    .bar-wrap { background:#e4dcc4; border-radius:9999px; height:5px; }
+    .bar { background:#506656; border-radius:9999px; height:5px; }
+    .two-col { display:grid; gap:1rem; grid-template-columns:1fr 1fr; }
+    @media(max-width:640px){ .two-col{ grid-template-columns:1fr; } }
+    /* Bar chart */
+    .chart-wrap { background:white; border:1px solid rgba(20,28,36,0.12); border-radius:0.75rem; padding:1.25rem; }
+    #daily-chart { display:flex; align-items:flex-end; gap:2px; height:100px; }
+    .day-col { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; }
+    .day-bar { width:100%; background:#7c9885; border-radius:2px 2px 0 0; min-height:2px; }
+    .day-label { font-size:0.55rem; color:#7c9885; margin-top:3px; font-family:system-ui,sans-serif; white-space:nowrap; }
+    /* World map */
+    .map-wrap { background:white; border:1px solid rgba(20,28,36,0.12); border-radius:0.75rem; overflow:hidden; }
+    #world-map { width:100%; height:auto; display:block; }
+    #error-msg { color:#f87171; font-size:0.875rem; margin-top:0.75rem; font-family:system-ui,sans-serif; text-align:center; }
   </style>
 
-  <!-- Login screen -->
+  <!-- Login -->
   <div id="login">
     <div style="width:100%;max-width:20rem;padding:2rem;">
       <p style="font-family:'Libre Baskerville',Georgia,serif;font-size:1.25rem;color:#faf7ee;margin-bottom:1.25rem;text-align:center;">Analytics</p>
-      <input
-        id="pw-input"
-        type="password"
-        placeholder="Password"
-        style="width:100%;padding:0.75rem 1rem;border-radius:0.5rem;border:1px solid #324854;background:#1b2732;color:#faf7ee;font-size:1rem;font-family:system-ui,sans-serif;box-sizing:border-box;"
-      />
-      <button
-        id="pw-btn"
-        style="width:100%;margin-top:0.75rem;padding:0.75rem;border-radius:0.5rem;background:#506656;color:#faf7ee;font-size:0.9rem;font-family:system-ui,sans-serif;border:none;cursor:pointer;"
-      >Enter</button>
-      <p id="error-msg" style="display:none;text-align:center;">Incorrect password.</p>
+      <input id="pw-input" type="password" placeholder="Password"
+        style="width:100%;padding:0.75rem 1rem;border-radius:0.5rem;border:1px solid #324854;background:#1b2732;color:#faf7ee;font-size:1rem;font-family:system-ui,sans-serif;box-sizing:border-box;" />
+      <button id="pw-btn"
+        style="width:100%;margin-top:0.75rem;padding:0.75rem;border-radius:0.5rem;background:#506656;color:#faf7ee;font-size:0.9rem;font-family:system-ui,sans-serif;border:none;cursor:pointer;">Enter</button>
+      <p id="error-msg" style="display:none;"></p>
     </div>
   </div>
 
@@ -68,47 +67,110 @@ import Layout from "../layouts/Layout.astro";
       <div class="section">
         <h2>Visitors — Last 30 Days</h2>
         <div class="chart-wrap">
-          <div class="chart-bars" id="daily-chart"></div>
+          <div id="daily-chart"></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Visitor Map</h2>
+        <div class="map-wrap">
+          <svg id="world-map" viewBox="0 0 960 480" xmlns="http://www.w3.org/2000/svg">
+            <!-- Ocean -->
+            <rect width="960" height="480" fill="#dde9f3"/>
+            <!-- Simplified continent outlines -->
+            <!-- North America -->
+            <polygon points="20,18 341,18 341,171 248,214 264,178 169,154 150,110 104,80 39,30" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.5"/>
+            <!-- Greenland -->
+            <polygon points="214,6 321,6 321,60 214,60" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.5"/>
+            <!-- South America -->
+            <polygon points="98,78 128,78 146,95 128,126 110,146 98,78" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.5"/>
+            <!-- Europe -->
+            <polygon points="161,54 220,54 220,18 200,30 170,42 161,54" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.5"/>
+            <!-- Africa -->
+            <polygon points="162,52 232,52 232,80 222,95 214,126 198,126 162,74" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.5"/>
+            <!-- Asia (simplified) -->
+            <polygon points="220,54 260,80 280,84 290,70 310,54 325,45 320,35 320,18 280,18 240,30 220,54" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.5"/>
+            <!-- SE Asia peninsula -->
+            <polygon points="280,84 296,100 306,90 294,76 280,84" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.5"/>
+            <!-- Australia -->
+            <polygon points="294,112 334,112 334,134 312,134 294,126" fill="#e8e3d5" stroke="#c8c3b5" stroke-width="0.5"/>
+            <!-- Dots container (filled by JS) -->
+            <g id="map-dots"></g>
+          </svg>
         </div>
       </div>
 
       <div class="section">
         <h2>Pages Ranked by Views</h2>
-        <table id="pages-table">
-          <thead><tr><th>Page</th><th>Views</th><th style="width:30%"></th></tr></thead>
-          <tbody></tbody>
-        </table>
+        <div class="card">
+          <table id="pages-table">
+            <thead><tr><th>Page</th><th>Views</th><th style="width:35%"></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
 
       <div class="two-col section">
         <div>
           <h2>By Country</h2>
-          <table id="country-table">
-            <thead><tr><th>Country</th><th>Visitors</th></tr></thead>
-            <tbody></tbody>
-          </table>
+          <div class="card">
+            <table id="country-table">
+              <thead><tr><th>Country</th><th>Visitors</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
         </div>
         <div>
           <h2>By City</h2>
-          <table id="city-table">
-            <thead><tr><th>City</th><th>Visitors</th></tr></thead>
-            <tbody></tbody>
-          </table>
+          <div class="card">
+            <table id="city-table">
+              <thead><tr><th>City</th><th>Visitors</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <script is:inline>
-    function fmt(n) { return Number(n).toLocaleString(); }
+    // Country centroid lookup [lat, lng]
+    const CENTROIDS = {
+      "United States":[37.09,-95.71],"Canada":[56.13,-106.35],"Mexico":[23.63,-102.55],
+      "Guatemala":[15.78,-90.23],"Colombia":[4.57,-74.30],"Brazil":[-14.24,-51.93],
+      "Argentina":[-38.42,-63.62],"Chile":[-35.68,-71.54],"Peru":[-9.19,-75.02],
+      "United Kingdom":[55.38,-3.44],"Ireland":[53.41,-8.24],"France":[46.23,2.21],
+      "Germany":[51.17,10.45],"Netherlands":[52.13,5.29],"Belgium":[50.50,4.47],
+      "Spain":[40.46,-3.75],"Portugal":[39.40,-8.22],"Italy":[41.87,12.57],
+      "Switzerland":[46.82,8.23],"Austria":[47.52,14.55],"Poland":[51.92,19.15],
+      "Sweden":[60.13,18.64],"Norway":[60.47,8.47],"Denmark":[56.26,9.50],
+      "Finland":[61.92,25.75],"Czech Republic":[49.82,15.47],"Romania":[45.94,24.97],
+      "Hungary":[47.16,19.50],"Ukraine":[48.38,31.17],"Greece":[39.07,21.82],
+      "Turkey":[38.96,35.24],"Russia":[61.52,105.32],"Israel":[31.05,34.85],
+      "Saudi Arabia":[23.89,45.08],"UAE":[23.42,53.85],"Pakistan":[30.38,69.35],
+      "India":[20.59,78.96],"Bangladesh":[23.68,90.36],"China":[35.86,104.20],
+      "Hong Kong":[22.40,114.11],"Taiwan":[23.70,120.96],"Japan":[36.20,138.25],
+      "South Korea":[35.91,127.77],"Vietnam":[14.06,108.28],"Thailand":[15.87,100.99],
+      "Malaysia":[4.21,101.98],"Singapore":[1.35,103.82],"Philippines":[12.88,121.77],
+      "Indonesia":[-0.79,113.92],"Australia":[-25.27,133.78],"New Zealand":[-40.90,174.89],
+      "Nigeria":[9.08,8.68],"South Africa":[-28.47,24.68],"Kenya":[-0.02,37.91],
+      "Egypt":[26.82,30.80],"Ghana":[7.95,-1.02],"Ethiopia":[9.14,40.49],
+    };
 
-    function getVal(report, rowIndex, metricIndex) {
-      return report?.rows?.[rowIndex]?.metricValues?.[metricIndex]?.value ?? "0";
+    // Equirectangular: SVG is 960x480, x=(lng+180)/360*960, y=(90-lat)/180*480
+    function lngLatToSvg(lat, lng) {
+      return [(lng + 180) / 360 * 960, (90 - lat) / 180 * 480];
     }
 
-    function buildTable(tableId, rows, getLabel, getValue, showBar) {
+    function fmt(n) { return Number(n).toLocaleString(); }
+
+    function getVal(report, row, metric) {
+      return report?.rows?.[row]?.metricValues?.[metric]?.value ?? "0";
+    }
+
+    function buildTable(tableId, rows, getLabel, showBar) {
       const tbody = document.querySelector(`#${tableId} tbody`);
-      if (!rows || rows.length === 0) { tbody.innerHTML = '<tr><td colspan="3">No data yet.</td></tr>'; return; }
+      if (!rows?.length) { tbody.innerHTML = '<tr><td colspan="3" style="color:#7c9885;padding:1rem">No data yet.</td></tr>'; return; }
       const max = Number(rows[0].metricValues[0].value);
       tbody.innerHTML = rows.map(row => {
         const label = getLabel(row);
@@ -121,19 +183,45 @@ import Layout from "../layouts/Layout.astro";
 
     function buildChart(dailyData) {
       const wrap = document.getElementById("daily-chart");
-      if (!dailyData?.rows?.length) { wrap.innerHTML = '<p style="font-size:0.8rem;color:#506656">No data yet.</p>'; return; }
+      if (!dailyData?.rows?.length) { wrap.innerHTML = '<p style="font-size:0.8rem;color:#7c9885;padding:1rem">No data yet.</p>'; return; }
       const vals = dailyData.rows.map(r => Number(r.metricValues[0].value));
       const max = Math.max(...vals, 1);
       wrap.innerHTML = vals.map((v, i) => {
-        const row = dailyData.rows[i];
-        const d = row.dimensionValues[0].value;
+        const d = dailyData.rows[i].dimensionValues[0].value;
         const label = `${d.slice(4,6)}/${d.slice(6,8)}`;
-        const h = Math.max(Math.round((v / max) * 80), 2);
-        return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;">
-          <div class="chart-bar" style="height:${h}px;width:100%;" title="${label}: ${fmt(v)} visitors"></div>
-          ${i % 5 === 0 ? `<div class="chart-label">${label}</div>` : '<div class="chart-label"></div>'}
+        const pct = Math.max((v / max) * 100, 2);
+        const showLabel = i === 0 || i === vals.length - 1 || i % 7 === 0;
+        return `<div class="day-col" title="${label}: ${fmt(v)} visitors">
+          <div class="day-bar" style="height:${pct}%"></div>
+          <div class="day-label">${showLabel ? label : ""}</div>
         </div>`;
       }).join("");
+    }
+
+    function buildMap(countryRows) {
+      const dotsEl = document.getElementById("map-dots");
+      if (!countryRows?.length) return;
+      const max = Number(countryRows[0].metricValues[0].value);
+      countryRows.forEach(row => {
+        const country = row.dimensionValues[0].value;
+        const val = Number(row.metricValues[0].value);
+        const centroid = CENTROIDS[country];
+        if (!centroid) return;
+        const [x, y] = lngLatToSvg(centroid[0], centroid[1]);
+        const r = Math.max(3, Math.min(10, 3 + (val / max) * 7));
+        const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        dot.setAttribute("cx", x);
+        dot.setAttribute("cy", y);
+        dot.setAttribute("r", r);
+        dot.setAttribute("fill", "#506656");
+        dot.setAttribute("fill-opacity", "0.75");
+        dot.setAttribute("stroke", "white");
+        dot.setAttribute("stroke-width", "1");
+        const title = document.createElementNS("http://www.w3.org/2000/svg", "title");
+        title.textContent = `${country}: ${fmt(val)} visitor${val !== 1 ? "s" : ""}`;
+        dot.appendChild(title);
+        dotsEl.appendChild(dot);
+      });
     }
 
     async function fetchAnalytics(password) {
@@ -161,28 +249,18 @@ import Layout from "../layouts/Layout.astro";
       try {
         const data = await fetchAnalytics(pw);
 
-        // Stats
         document.getElementById("s-total").textContent = fmt(getVal(data.total, 0, 0));
         document.getElementById("s-week").textContent = fmt(getVal(data.week, 0, 0));
         document.getElementById("s-sessions").textContent = fmt(getVal(data.total, 0, 1));
         document.getElementById("s-views").textContent = fmt(getVal(data.total, 0, 2));
-
-        // Chart
-        buildChart(data.daily);
-
-        // Pages
-        buildTable("pages-table", data.pages?.rows, r => r.dimensionValues[0].value, r => r.metricValues[0].value, true);
-
-        // Countries
-        buildTable("country-table", data.countries?.rows, r => r.dimensionValues[0].value, r => r.metricValues[0].value, false);
-
-        // Cities
-        buildTable("city-table", data.cities?.rows, r => r.dimensionValues[0].value, r => r.metricValues[0].value, false);
-
-        // Updated time
         document.getElementById("updated-time").textContent = "Last updated: " + new Date().toLocaleString();
 
-        // Show dashboard
+        buildChart(data.daily);
+        buildMap(data.countries?.rows);
+        buildTable("pages-table", data.pages?.rows, r => r.dimensionValues[0].value, true);
+        buildTable("country-table", data.countries?.rows, r => r.dimensionValues[0].value, false);
+        buildTable("city-table", data.cities?.rows, r => r.dimensionValues[0].value, false);
+
         document.getElementById("login").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
 

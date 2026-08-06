@@ -77,7 +77,6 @@ export const handler = async (event) => {
   }
 
   const storedPw = process.env.ANALYTICS_PASSWORD;
-  console.log("pw check", { storedLen: storedPw?.length, inputLen: password?.length, match: password === storedPw });
   if (password !== storedPw) {
     return { statusCode: 401, body: JSON.stringify({ error: "Unauthorized" }) };
   }
