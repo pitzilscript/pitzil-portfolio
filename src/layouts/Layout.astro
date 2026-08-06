@@ -36,5 +36,51 @@ const {
       <slot />
     </main>
     <slot name="footer" />
+  <script is:inline>
+    // Scroll-triggered reveal
+    const ro = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+    // Parallax backgrounds
+    const pEls = [...document.querySelectorAll('[data-parallax]')];
+    if (pEls.length) {
+      function updateParallax() {
+        pEls.forEach(el => {
+          const rect = el.closest('section').getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+          const p = rect.top / window.innerHeight;
+          el.style.transform = `translateY(${(p * -18).toFixed(2)}px) scale(1.08)`;
+        });
+      }
+      window.addEventListener('scroll', updateParallax, { passive: true });
+      updateParallax();
+    }
+
+    // Animated details/summary expand
+    document.querySelectorAll('details').forEach(details => {
+      const body = details.querySelector('div');
+      if (!body) return;
+      body.style.overflow = 'hidden';
+      body.style.maxHeight = '0px';
+      body.style.opacity = '0';
+      body.style.transition = 'max-height 0.45s ease, opacity 0.4s ease';
+      details.querySelector('summary').addEventListener('click', e => {
+        e.preventDefault();
+        if (details.open) {
+          body.style.maxHeight = '0px';
+          body.style.opacity = '0';
+          setTimeout(() => details.removeAttribute('open'), 450);
+        } else {
+          details.setAttribute('open', '');
+          body.style.maxHeight = (body.scrollHeight + 400) + 'px';
+          body.style.opacity = '1';
+        }
+      });
+    });
+  </script>
   </body>
 </html>

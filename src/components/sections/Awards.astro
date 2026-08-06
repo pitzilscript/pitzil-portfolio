@@ -89,6 +89,7 @@ const fullExtracurriculars = [
     alt=""
     widths={[800, 1600, 2400]}
     sizes="100vw"
+    data-parallax
     class="absolute inset-0 h-full w-full object-cover object-[50%_30%] grayscale blur-[1px]"
   />
   <div
@@ -97,11 +98,11 @@ const fullExtracurriculars = [
   ></div>
 
   <div class="relative mx-auto max-w-3xl px-6 py-20">
-    <h1 class="font-display text-3xl font-normal text-navy-950">Awards</h1>
+    <h1 class="reveal font-display text-3xl font-normal text-navy-950">Awards</h1>
     <div class="mt-8 grid gap-6 sm:grid-cols-2">
       {
-        awards.map((award) => (
-          <div class="rounded-xl border border-navy-950/15 bg-white p-6">
+        awards.map((award, i) => (
+          <div class={`reveal card-lift rounded-xl border border-navy-950/15 bg-white p-6${i % 2 === 1 ? " reveal-d2" : ""}`}>
             <h2 class="font-display text-lg font-normal text-navy-950">
               {award.href ? (
                 <a

@@ -75,6 +75,7 @@ const roles = [
     alt=""
     widths={[800, 1600, 2400]}
     sizes="100vw"
+    data-parallax
     class="absolute inset-0 h-full w-full object-cover object-[50%_40%] grayscale blur-[1px]"
   />
   <div
@@ -83,12 +84,12 @@ const roles = [
   ></div>
 
   <div class="relative mx-auto max-w-3xl px-6 py-20">
-    <h1 class="font-display text-3xl font-normal text-navy-950">Experience</h1>
-    <p class="mt-3 text-navy-800">Tap or click a role to read more.</p>
+    <h1 class="reveal font-display text-3xl font-normal text-navy-950">Experience</h1>
+    <p class="reveal mt-3 text-navy-800">Tap or click a role to read more.</p>
     <div class="mt-8 grid gap-4 sm:grid-cols-2" data-experience-grid>
       {
-        roles.map((entry) => (
-          <details class="group rounded-xl border border-navy-950/15 bg-white open:sm:col-span-2">
+        roles.map((entry, i) => (
+          <details class={`reveal group rounded-xl border border-navy-950/15 bg-white open:sm:col-span-2`} style={`transition-delay:${i * 0.08}s`}>
           <summary class="flex cursor-pointer list-none items-center gap-4 p-4 [&::-webkit-details-marker]:hidden">
             <span
               class:list={[

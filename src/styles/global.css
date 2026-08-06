@@ -25,6 +25,43 @@
   --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
 }
 
+/* ── Hero animations ── */
+@keyframes ken-burns {
+  from { transform: scale(1.1); }
+  to   { transform: scale(1.0); }
+}
+@keyframes hero-up {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-photo   { animation: ken-burns 12s ease-out forwards; }
+.hero-h1      { animation: hero-up 0.7s cubic-bezier(.25,.46,.45,.94) 0.15s both; }
+.hero-tagline { animation: hero-up 0.7s cubic-bezier(.25,.46,.45,.94) 0.35s both; }
+.hero-desc    { animation: hero-up 0.7s cubic-bezier(.25,.46,.45,.94) 0.55s both; }
+.hero-cta     { animation: hero-up 0.7s cubic-bezier(.25,.46,.45,.94) 0.75s both; }
+.hero-credit  { animation: hero-up 0.7s cubic-bezier(.25,.46,.45,.94) 0.9s  both; }
+
+/* ── Scroll-triggered reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(.25,.46,.45,.94),
+              transform 0.65s cubic-bezier(.25,.46,.45,.94);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+/* ── Card hover lift ── */
+.card-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 48px rgba(20,28,36,0.13);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
