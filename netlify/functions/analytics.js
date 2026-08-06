@@ -90,7 +90,14 @@ export const handler = async (event) => {
     return { statusCode: 500, body: JSON.stringify({ error: `Missing env vars: ${!propertyId ? "GA_PROPERTY_ID " : ""}${!clientEmail ? "GA_CLIENT_EMAIL " : ""}${!rawKey ? "GA_PRIVATE_KEY" : ""}` }) };
   }
 
-  const privateKey = rawKey.replace(/\\n/g, "\n");
+  // Restore newlines however Netlify stored them, then rebuild PEM cleanly
+  const normalized = rawKey.replace(/\\n/g, "\n").replace(/\r\n/g, "\n");
+  const pemBody = normalized
+    .replace("-----BEGIN PRIVATE KEY-----", "")
+    .replace("-----END PRIVATE KEY-----", "")
+    .replace(/\s+/g, "");
+  const wrapped = pemBody.match(/.{1,64}/g).join("\n");
+  const privateKey = `-----BEGIN PRIVATE KEY-----\n${wrapped}\n-----END PRIVATE KEY-----`;
 
   let accessToken;
   try {
