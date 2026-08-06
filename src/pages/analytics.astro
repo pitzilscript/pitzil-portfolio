@@ -29,10 +29,7 @@ import Layout from "../layouts/Layout.astro";
     @media(max-width:640px){ .two-col{ grid-template-columns:1fr; } }
     /* Bar chart */
     .chart-wrap { background:white; border:1px solid rgba(20,28,36,0.12); border-radius:0.75rem; padding:1.25rem; }
-    #daily-chart { display:flex; align-items:stretch; gap:2px; height:100px; }
-    .day-col { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; }
-    .day-bar { width:100%; background:#7c9885; border-radius:2px 2px 0 0; min-height:2px; }
-    .day-label { font-size:0.55rem; color:#7c9885; margin-top:3px; font-family:system-ui,sans-serif; white-space:nowrap; flex-shrink:0; }
+    #daily-chart { width:100%; }
     /* World map */
     .map-wrap { background:white; border:1px solid rgba(20,28,36,0.12); border-radius:0.75rem; overflow:hidden; }
     #world-map { width:100%; height:auto; display:block; }
@@ -180,19 +177,23 @@ import Layout from "../layouts/Layout.astro";
 
     function buildChart(dailyData) {
       const wrap = document.getElementById("daily-chart");
-      if (!dailyData?.rows?.length) { wrap.innerHTML = '<p style="font-size:0.8rem;color:#7c9885;padding:1rem">No data yet.</p>'; return; }
+      if (!dailyData?.rows?.length) { wrap.innerHTML = '<p style="font-size:0.8rem;color:#7c9885;padding:0.5rem">No data yet.</p>'; return; }
       const vals = dailyData.rows.map(r => Number(r.metricValues[0].value));
       const max = Math.max(...vals, 1);
-      wrap.innerHTML = vals.map((v, i) => {
+      const n = vals.length;
+      const W = 800, H = 80, labelH = 14;
+      const gap = 2;
+      const barW = Math.max(1, (W - (n - 1) * gap) / n);
+      const bars = vals.map((v, i) => {
+        const x = i * (barW + gap);
+        const h = Math.max(2, (v / max) * H);
+        const y = H - h;
         const d = dailyData.rows[i].dimensionValues[0].value;
         const label = `${d.slice(4,6)}/${d.slice(6,8)}`;
-        const pct = Math.max((v / max) * 100, 2);
-        const showLabel = i === 0 || i === vals.length - 1 || i % 7 === 0;
-        return `<div class="day-col" title="${label}: ${fmt(v)} visitors">
-          <div class="day-bar" style="height:${pct}%"></div>
-          <div class="day-label">${showLabel ? label : ""}</div>
-        </div>`;
+        const showLabel = i === 0 || i === n - 1 || i % 7 === 0;
+        return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" fill="#7c9885" rx="1"><title>${label}: ${fmt(v)} visitors</title></rect>${showLabel ? `<text x="${(x + barW / 2).toFixed(1)}" y="${H + labelH - 2}" text-anchor="middle" font-size="9" fill="#7c9885" font-family="system-ui,sans-serif">${label}</text>` : ""}`;
       }).join("");
+      wrap.innerHTML = `<svg viewBox="0 0 ${W} ${H + labelH}" style="width:100%;height:auto;display:block;">${bars}</svg>`;
     }
 
     function buildMap(countryRows) {
