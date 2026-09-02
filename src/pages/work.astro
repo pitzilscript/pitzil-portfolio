@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Experience from "../components/sections/Experience.astro";
+import Projects from "../components/sections/Projects.astro";
+import Resume from "../components/sections/Resume.astro";
+---
+
+<Layout
+  title="Work | Pitzil Avila-Castellanos"
+  description="Experience, projects, and resume for Pitzil Avila-Castellanos: IYAP, Watoto/Uganda, APU, Newegg, Bithiah's, CVBuilder, Scorecast."
+>
+  <Header slot="header" />
+  <Experience />
+  <Projects />
+  <Resume />
+  <Footer slot="footer" />
+</Layout>
