@@ -3,20 +3,7 @@ import { Image } from "astro:assets";
 import projectsBg from "../../assets/photos/place-uganda.jpg";
 ---
 
-<section class="relative overflow-hidden">
-  <Image
-    src={projectsBg}
-    alt=""
-    widths={[800, 1600, 2400]}
-    sizes="100vw"
-    data-parallax
-    class="absolute inset-0 h-full w-full object-cover object-[45%_35%] grayscale blur-[1px]"
-  />
-  <div
-    class="absolute inset-0"
-    style="background-color: rgba(250, 247, 238, 0.8);"
-  ></div>
-
+<section class="relative">
   <div class="relative mx-auto max-w-5xl px-6 py-20">
     <h1 class="reveal font-display text-3xl font-normal text-navy-950">Projects</h1>
 

@@ -5,6 +5,8 @@ import Footer from "../components/Footer.astro";
 import Experience from "../components/sections/Experience.astro";
 import Projects from "../components/sections/Projects.astro";
 import Resume from "../components/sections/Resume.astro";
+import { Image } from "astro:assets";
+import workBg from "../assets/photos/place-colombo-day.webp";
 ---
 
 <Layout
@@ -12,8 +14,21 @@ import Resume from "../components/sections/Resume.astro";
   description="Experience, projects, and resume for Pitzil Avila-Castellanos: IYAP, Watoto/Uganda, APU, Newegg, Bithiah's, CVBuilder, Scorecast."
 >
   <Header slot="header" />
-  <Experience />
-  <Projects />
-  <Resume />
+  <div class="relative overflow-hidden">
+    <Image
+      src={workBg}
+      alt=""
+      widths={[800, 1600, 2400]}
+      sizes="100vw"
+      data-parallax
+      class="absolute inset-0 h-full w-full object-cover object-[50%_40%] grayscale blur-[1px]"
+    />
+    <div class="absolute inset-0" style="background-color: rgba(250, 247, 238, 0.88);"></div>
+    <div class="relative">
+      <Experience />
+      <Projects />
+      <Resume />
+    </div>
+  </div>
   <Footer slot="footer" />
 </Layout>
