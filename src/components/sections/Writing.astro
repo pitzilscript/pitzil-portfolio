@@ -1,54 +1,32 @@
 ---
-import { Image } from "astro:assets";
-import iyapLogo from "../../assets/logos/iyap.webp";
-import writingBg from "../../assets/photos/place-colombo-night.jpg";
 ---
 
-<section class="relative overflow-hidden">
-  <Image
-    src={writingBg}
-    alt=""
-    widths={[800, 1600, 2400]}
-    sizes="100vw"
-    data-parallax
-    class="absolute inset-0 h-full w-full object-cover object-[50%_50%] grayscale blur-[1px]"
-  />
-  <div
-    class="absolute inset-0"
-    style="background-color: rgba(250, 247, 238, 0.8);"
-  ></div>
-
-  <div class="relative mx-auto max-w-3xl px-6 py-20">
-    <h1 class="reveal font-display text-3xl font-normal text-navy-950">Writing</h1>
-    <div class="mt-8 space-y-6">
-      <article class="reveal card-lift rounded-xl border border-navy-950/15 bg-white p-6">
-        <div class="flex items-start gap-4">
-          <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-white p-2 ring-1 ring-navy-950/10">
-            <Image
-              src={iyapLogo}
-              alt="International Youth Alliance for Peace logo"
-              width={80}
-              class="max-h-full max-w-full object-contain"
-            />
-          </span>
-          <div>
-            <h2 class="font-display text-xl font-normal text-navy-950">
-              <a
-                href="https://www.iyap.global/blog/posts/bridging-the-great-divide-education-wealth-america"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:text-sage-500"
-              >
-                Bridging The Great Divide: How Family Wealth Shapes Education in America
-              </a>
-            </h2>
-            <p class="mt-1 text-sm text-sage-700">International Youth Alliance for Peace · 2026</p>
-            <p class="mt-3 text-navy-800">
-              An essay on how family wealth determines educational access in America, and what it means for advocacy work aimed at closing that gap.
-            </p>
-          </div>
-        </div>
-      </article>
-    </div>
+<div class="tab-panel" id="main-content">
+  <div class="section-intro reveal">
+    <p class="eyebrow">Writing</p>
+    <h2>Ideas worth<br/>putting on record.</h2>
+    <p>
+      Long-form thinking on education equity, humanitarian technology, and what it means to build systems for the people mainstream institutions overlook.
+    </p>
   </div>
-</section>
+
+  <div class="writing-layout reveal" style="grid-template-columns: 1fr; max-width: 720px;">
+
+    <div class="essay-card">
+      <div class="essay-mark" aria-hidden="true">&ldquo;</div>
+      <p class="meta">2026 &middot; International Youth Alliance for Peace</p>
+      <h3>Bridging The Great Divide</h3>
+      <p class="essay-subtitle">How Family Wealth Shapes Education in America</p>
+      <p>
+        An essay on how family wealth determines educational access in America, and what it means for advocacy work aimed at closing that gap. Published through IYAP during my internship in Sri Lanka.
+      </p>
+      <a href="#" class="button-link" aria-label="Read Bridging The Great Divide">
+        Read essay
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M2.5 7h9M7 2.5L11.5 7 7 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</div>

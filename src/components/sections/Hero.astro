@@ -1,61 +1,55 @@
 ---
 import { Image } from "astro:assets";
-import heroPresenting from "../../assets/photos/hero-linux-summit.jpeg";
+import heroPhoto from "../../assets/photos/hero-headshot.jpg";
 ---
 
-<section
-  aria-label="Introduction"
-  class="relative flex min-h-screen items-end overflow-hidden bg-navy-950 text-ivory-50"
->
-  <Image
-    src={heroPresenting}
-    alt="Pitzil Avila-Castellanos smiling and talking with colleagues over lunch at the Linux Foundation Open Source Summit, wearing a conference lanyard"
-    widths={[640, 1024, 1600, 2200]}
-    sizes="100vw"
-    class="absolute inset-0 h-full w-full object-cover object-[46%_38%] hero-photo"
-  />
-  <div
-    class="pointer-events-none absolute inset-0"
-    style="background: linear-gradient(to top, rgba(20,28,36,1) 0%, rgba(20,28,36,0.75) 45%, rgba(20,28,36,0.15) 100%);"
-  >
+<section class="hero" id="main-content">
+  <!-- decorative shapes -->
+  <div class="hero-shape shape-one" aria-hidden="true"></div>
+  <div class="hero-shape shape-two" aria-hidden="true"></div>
+
+  <div class="hero-copy">
+    <p class="eyebrow">Advocate &amp; Engineer</p>
+
+    <h1>
+      Code that<br/>
+      <em>moves people</em><br/>
+      forward.
+    </h1>
+
+    <p>
+      Humanitarian technologist building offline-first infrastructure, testifying before the California Legislature, and engineering systems that reach the people mainstream tech overlooks.
+    </p>
+
+    <div class="hero-actions">
+      <a href="/work" class="primary-button">
+        View my work
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M2.5 7h9M7 2.5L11.5 7 7 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href="/contact" class="secondary-button">Get in touch</a>
+    </div>
+
+    <div class="impact-note">
+      <span>Impact so far</span>
+      <p>
+        My work has reached <strong>700+ macOS endpoints audited</strong>, informed systems connecting
+        <strong>75+ global organizations</strong>, and carried me across
+        <strong>three continents</strong>.
+      </p>
+    </div>
   </div>
 
-  <div class="relative z-10 mx-auto w-full max-w-5xl px-6 pb-16 pt-32 text-center sm:text-left">
-    <h1 class="hero-h1 font-display text-4xl font-semibold tracking-wide drop-shadow-md sm:text-5xl">
-      Pitzil Avila-Castellanos
-    </h1>
-    <p class="hero-tagline mt-3 font-display italic text-lg text-sage-300">
-      Tradition. Transformed.
-    </p>
-    <p class="hero-desc mt-6 text-lg text-ivory-100 drop-shadow-md sm:text-xl">
-      Humanitarian technology, building for social impact.
-    </p>
-    <div class="hero-cta mt-8 flex flex-wrap justify-center gap-4 text-sm sm:justify-start">
-      <a
-        href="mailto:pcastellanos24@apu.edu"
-        class="min-h-11 rounded-md bg-sage-500 px-5 py-2.5 font-semibold text-navy-950 hover:bg-sage-300"
-      >
-        Email
-      </a>
-      <a
-        href="https://linkedin.com/in/pitzil"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="min-h-11 rounded-md border border-sage-500 px-5 py-2.5 font-semibold text-ivory-50 hover:border-sage-300 hover:text-sage-300"
-      >
-        LinkedIn
-      </a>
-      <a
-        href="https://github.com/pitzilscript"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="min-h-11 rounded-md border border-sage-500 px-5 py-2.5 font-semibold text-ivory-50 hover:border-sage-300 hover:text-sage-300"
-      >
-        GitHub
-      </a>
+  <div class="hero-visual">
+    <div class="photo-frame">
+      <Image
+        src={heroPhoto}
+        alt="Pitzil Avila-Castellanos at the Linux Foundation Open Source Summit"
+        width={1020}
+        height={1020}
+        loading="eager"
+      />
     </div>
-    <p class="hero-credit mt-6 text-xs text-ivory-100/70">
-      Photo courtesy of the Linux Foundation, Open Source Summit North America.
-    </p>
   </div>
 </section>

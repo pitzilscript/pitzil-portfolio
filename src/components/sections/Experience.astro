@@ -1,172 +1,335 @@
 ---
 import { Image } from "astro:assets";
-import experienceBg from "../../assets/photos/place-colombo-day.webp";
-import bithiahsTable from "../../assets/photos/bithiahs-table.jpeg";
-import iyapLogo from "../../assets/logos/iyap.webp";
-import watotoLogo from "../../assets/logos/watoto-black.png";
-import apuLogo from "../../assets/logos/apu.png";
-import neweggLogo from "../../assets/logos/newegg.svg";
-import bithiahsLogo from "../../assets/logos/bithiahs.png";
-
-const roles = [
-  {
-    role: "Systems, Intelligence, and Monitoring Intern",
-    org: "International Youth Alliance for Peace",
-    meta: "Colombo, Sri Lanka · July 2026 – October 2026",
-    logo: { src: iyapLogo, alt: "International Youth Alliance for Peace logo" },
-    paragraphs: [
-      "I conducted structured discovery interviews with NGO partners across South Asia and Africa, synthesizing what I learned into organizational assessment profiles that informed IYAP's international partnership strategy. That work fed into IYAP's Global Alliance and Stakeholder Intelligence System and included designing and building a PostgreSQL and Django database to centralize international program partnership data across 75+ global organizations.",
-      "I also supported reporting and monitoring improvements by organizing and structuring multi-stakeholder data across IYAP's international programs, and produced written content, including a published blog on education equity, stakeholder briefings, and professional communications, reaching volunteers across six or more countries.",
-    ],
-  },
-  {
-    role: "Software Engineering Intern",
-    org: "Watoto, Intl.",
-    meta: "Kampala, Uganda · February 2026 – June 2026",
-    logo: { src: watotoLogo, alt: "Watoto, Intl. logo" },
-    paragraphs: [
-      "I engineered an offline-first edge server on a LattePanda Iota with GL.iNet Opal networking, broadcasting a private WPA3 hotspot that serves a Django application with zero internet dependency, built to withstand power outages in a Ugandan community school.",
-      "The production stack includes a Django REST API, a PostgreSQL data layer designed to manage complex relational models, a React frontend, Gunicorn WSGI, and an Nginx reverse proxy with HTTPS, all running on the edge device itself. The system is built and technically complete. Deployment is on hold until I can travel, so I'm careful not to overstate it as already in use.",
-    ],
-    link: { href: "/projects", label: "Read the Projects case study" },
-  },
-  {
-    role: "Junior System Administrator",
-    org: "Azusa Pacific University",
-    meta: "Azusa, CA · January 2026 – Present",
-    logo: { src: apuLogo, alt: "Azusa Pacific University seal" },
-    paragraphs: [
-      "I'm pursuing a B.S. in Computer Science with a Minor in Data Science at APU.",
-      "I developed a Python-based automated audit system that ingests and analyzes endpoint data across more than 700 macOS devices, surfacing compliance patterns against the university's naming conventions.",
-      "I also standardize Mobile Device Management workflows using Jamf Pro, Intune, and Apple School Manager to streamline campus-wide technology deployments and reduce manual overhead.",
-    ],
-  },
-  {
-    role: "Data Analyst Intern",
-    org: "Newegg Commerce, Inc.",
-    meta: "Diamond Bar, CA · June 2025 – August 2025",
-    logo: { src: neweggLogo, alt: "Newegg logo" },
-    paragraphs: [
-      "I conducted a 55-point customer experience audit, applying structured data analysis to identify behavioral patterns across key touchpoints, and synthesized the findings into executive presentations for more than ten company leaders and C-suite executives.",
-      "I also produced weekly Excel-based reports on customer experience trends for direct C-suite review. This internship is where data analysis clicked for me: advocacy is nothing without the numbers to back it up.",
-    ],
-  },
-  {
-    role: "Coordinator of Volunteers",
-    org: "Bithiah's Family Services",
-    meta: "Pomona, CA · September 2020 – Present (volunteer since 2014)",
-    logo: { src: bithiahsLogo, alt: "Bithiah's Family Services logo" },
-    paragraphs: [
-      "I lead a bilingual initiative that has translated more than 80 pages of materials into Spanish for the Latinx families we serve, and I've coordinated more than 50 supply distribution events for foster and adoptive families.",
-      "This is where my advocacy work started, when I was seven years old, and it's still where it's rooted.",
-    ],
-    image: {
-      src: bithiahsTable,
-      alt: "Pitzil Avila-Castellanos at a Bithiah's Family Services volunteer table during a community event",
-      credit: "Photo courtesy of Bithiah's Family Services",
-    },
-  },
-];
+import watotoPhoto from "../../assets/photos/watoto-children.jpg";
+import scorecastPhoto from "../../assets/photos/scorecast-worldcup.jpg";
 ---
 
-<section class="relative">
-  <div class="relative mx-auto max-w-3xl px-6 py-20">
-    <h1 class="reveal font-display text-3xl font-normal text-navy-950">Experience</h1>
-    <p class="reveal mt-3 text-navy-800">Tap or click a role to read more.</p>
-    <div class="mt-8 grid gap-4 sm:grid-cols-2" data-experience-grid>
-      {
-        roles.map((entry, i) => (
-          <details class={`reveal card-lift group rounded-xl border border-navy-950/15 bg-white open:sm:col-span-2`} style={`transition-delay:${i * 0.08}s`}>
-          <summary class="flex cursor-pointer list-none items-center gap-4 p-4 [&::-webkit-details-marker]:hidden">
-            <span
-              class:list={[
-                "flex h-14 w-14 shrink-0 items-center justify-center rounded-md p-2 ring-1 ring-navy-950/10",
-                entry.logo.darkChip ? "bg-navy-950" : "bg-white",
-              ]}
-            >
-              <Image
-                src={entry.logo.src}
-                alt={entry.logo.alt}
-                width={80}
-                class="max-h-full max-w-full object-contain"
-              />
-            </span>
-            <span class="flex-1">
-              <span class="block font-display text-base font-normal leading-tight text-navy-950">
-                {entry.role}
-              </span>
-              <span class="block text-sm text-sage-700">{entry.org}</span>
-            </span>
-            <svg
-              viewBox="0 0 20 20"
-              fill="none"
-              class="h-5 w-5 shrink-0 text-navy-800 transition-transform group-open:rotate-180"
-              aria-hidden="true"
-            >
-              <path
-                d="M5 7.5L10 12.5L15 7.5"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </summary>
-          <div class="space-y-4 border-t border-navy-950/10 px-4 pb-4 pt-4 text-navy-800">
-            <p class="text-sm text-sage-700">
-              {entry.meta}
-            </p>
-            {entry.paragraphs.map((p) => (
-              <p>{p}</p>
-            ))}
-            {entry.link && (
-              <a
-                href={entry.link.href}
-                class="inline-block font-semibold text-sage-700 underline decoration-sage-500 underline-offset-2 hover:text-sage-500"
-              >
-                {entry.link.label}
-              </a>
-            )}
-            {entry.image && (
-              <figure class="max-w-md">
-                <Image
-                  src={entry.image.src}
-                  alt={entry.image.alt}
-                  widths={[400, 800]}
-                  sizes="(min-width: 640px) 28rem, 90vw"
-                  class="w-full rounded-lg object-cover shadow-md"
-                />
-                <figcaption class="mt-2 text-xs text-navy-800/70">
-                  {entry.image.credit}
-                </figcaption>
-              </figure>
-            )}
-          </div>
-        </details>
-      ))
-    }
-    </div>
+<div class="tab-panel" id="main-content">
+  <div class="section-intro reveal">
+    <p class="eyebrow">Work</p>
+    <h2>Systems built,<br/>impact measured.</h2>
+    <p>
+      Engineering and advocacy roles spanning humanitarian technology, international development, and data analysis.
+    </p>
   </div>
-</section>
 
-<script>
-  const grid = document.querySelector<HTMLElement>("[data-experience-grid]");
+  <div class="work-layout reveal">
+    <div class="role-list">
 
-  if (grid) {
-    Array.from(grid.children).forEach((item) => {
-      if (!(item instanceof HTMLDetailsElement)) return;
+      <!-- IYAP -->
+      <div class="role">
+        <div class="role-year">2026</div>
+        <div>
+          <p class="role-company">International Youth Alliance for Peace</p>
+          <h3>Systems, Intelligence, and Monitoring Intern</h3>
+          <p class="place">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+              <path d="M5 1C3.34 1 2 2.34 2 4c0 2.5 3 6 3 6s3-3.5 3-6c0-1.66-1.34-3-3-3z" stroke="currentColor" stroke-width="1" fill="none"/>
+              <circle cx="5" cy="4" r="1" fill="currentColor"/>
+            </svg>
+            Colombo, Sri Lanka &middot; July 2026 &ndash; October 2026
+          </p>
 
-      item.addEventListener("toggle", () => {
-        if (!item.open) return;
+          <button
+            class="expand-btn"
+            aria-expanded="false"
+            aria-controls="iyap-detail"
+            onclick="
+              const btn = this;
+              const body = document.getElementById('iyap-detail');
+              const open = btn.getAttribute('aria-expanded') === 'true';
+              btn.setAttribute('aria-expanded', String(!open));
+              btn.querySelector('.expand-label').textContent = open ? 'Read more' : 'Show less';
+              body.style.maxHeight = open ? '0' : body.scrollHeight + 'px';
+              body.style.opacity = open ? '0' : '1';
+            "
+          >
+            <span class="expand-label">Read more</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
 
-        const precedingSiblings: Element[] = [];
-        let node = grid.firstElementChild;
-        while (node && node !== item) {
-          precedingSiblings.push(node);
-          node = node.nextElementSibling;
-        }
-        precedingSiblings.forEach((sibling) => grid.appendChild(sibling));
-      });
-    });
-  }
-</script>
+          <div class="expand-body" id="iyap-detail" aria-hidden="true">
+            <div class="expand-body-inner">
+              <p>
+                Conducted structured discovery interviews with NGO partners across South Asia and Africa, synthesizing findings into organizational assessment profiles that informed IYAP's international partnership strategy. That work fed into IYAP's Global Alliance and Stakeholder Intelligence System, including designing and building a PostgreSQL and Django database to centralize international program partnership data across 75+ global organizations.
+              </p>
+              <p>
+                Also supported reporting and monitoring improvements by organizing and structuring multi-stakeholder data across IYAP's international programs, and produced written content, including a published essay on education equity, stakeholder briefings, and professional communications reaching volunteers across six or more countries.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Watoto -->
+      <div class="role">
+        <div class="role-year">2026</div>
+        <div>
+          <p class="role-company">Watoto, Intl.</p>
+          <h3>Software Engineering Intern</h3>
+          <p class="place">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+              <path d="M5 1C3.34 1 2 2.34 2 4c0 2.5 3 6 3 6s3-3.5 3-6c0-1.66-1.34-3-3-3z" stroke="currentColor" stroke-width="1" fill="none"/>
+              <circle cx="5" cy="4" r="1" fill="currentColor"/>
+            </svg>
+            Kampala, Uganda &middot; February 2026 &ndash; Present
+          </p>
+
+          <button
+            class="expand-btn"
+            aria-expanded="false"
+            aria-controls="watoto-detail"
+            onclick="
+              const btn = this;
+              const body = document.getElementById('watoto-detail');
+              const open = btn.getAttribute('aria-expanded') === 'true';
+              btn.setAttribute('aria-expanded', String(!open));
+              btn.querySelector('.expand-label').textContent = open ? 'Read more' : 'Show less';
+              body.style.maxHeight = open ? '0' : body.scrollHeight + 'px';
+              body.style.opacity = open ? '0' : '1';
+            "
+          >
+            <span class="expand-label">Read more</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div class="expand-body" id="watoto-detail" aria-hidden="true">
+            <div class="expand-body-inner">
+              <p>
+                Engineered an offline-first edge server on a LattePanda Iota with GL.iNet Opal networking, broadcasting a private WPA3 hotspot that serves a Django application with zero internet dependency, built to withstand power outages in a Ugandan community school.
+              </p>
+              <p>
+                The production stack includes a Django REST API, a PostgreSQL data layer, a React frontend, Gunicorn WSGI, and an Nginx reverse proxy with HTTPS, all running on the edge device itself. The system is built and technically complete. Deployment is planned for spring 2027.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APU -->
+      <div class="role">
+        <div class="role-year">2026</div>
+        <div>
+          <p class="role-company">Azusa Pacific University</p>
+          <h3>Junior System Administrator</h3>
+          <p class="place">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+              <path d="M5 1C3.34 1 2 2.34 2 4c0 2.5 3 6 3 6s3-3.5 3-6c0-1.66-1.34-3-3-3z" stroke="currentColor" stroke-width="1" fill="none"/>
+              <circle cx="5" cy="4" r="1" fill="currentColor"/>
+            </svg>
+            Azusa, CA &middot; January 2026 &ndash; Present
+          </p>
+
+          <button
+            class="expand-btn"
+            aria-expanded="false"
+            aria-controls="apu-detail"
+            onclick="
+              const btn = this;
+              const body = document.getElementById('apu-detail');
+              const open = btn.getAttribute('aria-expanded') === 'true';
+              btn.setAttribute('aria-expanded', String(!open));
+              btn.querySelector('.expand-label').textContent = open ? 'Read more' : 'Show less';
+              body.style.maxHeight = open ? '0' : body.scrollHeight + 'px';
+              body.style.opacity = open ? '0' : '1';
+            "
+          >
+            <span class="expand-label">Read more</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div class="expand-body" id="apu-detail" aria-hidden="true">
+            <div class="expand-body-inner">
+              <p>
+                Developed a Python-based automated audit system that ingests and analyzes endpoint data across more than 700 macOS devices, surfacing compliance patterns against the university's naming conventions.
+              </p>
+              <p>
+                Standardizes Mobile Device Management workflows using Jamf Pro, Intune, and Apple School Manager to streamline campus-wide technology deployments and reduce manual overhead.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Newegg -->
+      <div class="role">
+        <div class="role-year">2025</div>
+        <div>
+          <p class="role-company">Newegg Commerce, Inc.</p>
+          <h3>Data Analyst Intern</h3>
+          <p class="place">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+              <path d="M5 1C3.34 1 2 2.34 2 4c0 2.5 3 6 3 6s3-3.5 3-6c0-1.66-1.34-3-3-3z" stroke="currentColor" stroke-width="1" fill="none"/>
+              <circle cx="5" cy="4" r="1" fill="currentColor"/>
+            </svg>
+            Diamond Bar, CA &middot; June 2025 &ndash; August 2025
+          </p>
+
+          <button
+            class="expand-btn"
+            aria-expanded="false"
+            aria-controls="newegg-detail"
+            onclick="
+              const btn = this;
+              const body = document.getElementById('newegg-detail');
+              const open = btn.getAttribute('aria-expanded') === 'true';
+              btn.setAttribute('aria-expanded', String(!open));
+              btn.querySelector('.expand-label').textContent = open ? 'Read more' : 'Show less';
+              body.style.maxHeight = open ? '0' : body.scrollHeight + 'px';
+              body.style.opacity = open ? '0' : '1';
+            "
+          >
+            <span class="expand-label">Read more</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div class="expand-body" id="newegg-detail" aria-hidden="true">
+            <div class="expand-body-inner">
+              <p>
+                Conducted a 55-point customer experience audit, applying structured data analysis to identify behavioral patterns across key touchpoints, and synthesized findings into executive presentations for more than ten company leaders and C-suite executives.
+              </p>
+              <p>
+                Produced weekly Excel-based reports on customer experience trends for direct C-suite review. This internship is where data analysis clicked: advocacy is nothing without the numbers to back it up.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bithiah's -->
+      <div class="role">
+        <div class="role-year">2020</div>
+        <div>
+          <p class="role-company">Bithiah's Family Services</p>
+          <h3>Coordinator of Volunteers</h3>
+          <p class="place">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+              <path d="M5 1C3.34 1 2 2.34 2 4c0 2.5 3 6 3 6s3-3.5 3-6c0-1.66-1.34-3-3-3z" stroke="currentColor" stroke-width="1" fill="none"/>
+              <circle cx="5" cy="4" r="1" fill="currentColor"/>
+            </svg>
+            Pomona, CA &middot; September 2020 &ndash; Present (volunteer since 2014)
+          </p>
+
+          <button
+            class="expand-btn"
+            aria-expanded="false"
+            aria-controls="bithiahs-detail"
+            onclick="
+              const btn = this;
+              const body = document.getElementById('bithiahs-detail');
+              const open = btn.getAttribute('aria-expanded') === 'true';
+              btn.setAttribute('aria-expanded', String(!open));
+              btn.querySelector('.expand-label').textContent = open ? 'Read more' : 'Show less';
+              body.style.maxHeight = open ? '0' : body.scrollHeight + 'px';
+              body.style.opacity = open ? '0' : '1';
+            "
+          >
+            <span class="expand-label">Read more</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div class="expand-body" id="bithiahs-detail" aria-hidden="true">
+            <div class="expand-body-inner">
+              <p>
+                Lead a bilingual initiative that has translated more than 80 pages of materials into Spanish for the Latinx families we serve, and coordinated more than 50 supply distribution events for foster and adoptive families.
+              </p>
+              <p>
+                This is where my advocacy work started, when I was seven years old, and it's still where it's rooted.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /role-list -->
+
+    <div class="project-cards">
+
+      <!-- Project card: CVBuilder -->
+      <div class="project-card reveal">
+        <div class="project-image">
+          <Image
+            src={watotoPhoto}
+            alt="Watoto village children and teacher sharing a photo"
+            width={880}
+            height={520}
+          />
+          <span>Featured Project</span>
+        </div>
+        <div class="project-body">
+          <p class="project-kicker">Watoto, Intl. &middot; Kampala, Uganda &middot; Feb &ndash; Jun 2026</p>
+          <h3>CVBuilder: offline infrastructure for a Ugandan community school</h3>
+          <p>
+            A resume-building app that runs entirely on a single-board computer broadcasting its own Wi-Fi hotspot &mdash; no power grid or internet required.
+          </p>
+          <details class="project-detail">
+            <summary class="project-detail-summary">Read more &amp; watch demo</summary>
+            <div class="project-detail-body">
+              <p>The community school this was built for doesn't have reliable power, and it doesn't have stable internet. Most software assumes both. CVBuilder is designed around the opposite assumption: that connectivity might never come, and the system still has to work.</p>
+              <p>The entire application runs on a LattePanda Iota, a single-board edge computer small and power-efficient enough to operate in a low-resource environment. A GL.iNet Opal router turns that device into its own private network, broadcasting a WPA3-secured hotspot that students connect to directly.</p>
+              <p>The stack is a Django REST API backed by PostgreSQL, served through Gunicorn, with a React frontend and an Nginx reverse proxy handling HTTPS and captive-portal routing. Every architectural decision traces back to the same constraint: this has to keep working through power outages, with no IT support on hand.</p>
+              <p>The system is built and technically complete. Deployment is on hold until the team can travel to Uganda.</p>
+            </div>
+          </details>
+          <div class="chip-row">
+            <span>Django</span>
+            <span>PostgreSQL</span>
+            <span>React</span>
+            <span>Nginx</span>
+            <span>LattePanda</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project card: Scorecast -->
+      <div class="project-card reveal reveal-d1">
+        <div class="project-image focus-bottom">
+          <Image
+            src={scorecastPhoto}
+            alt="FIFA World Cup 2026 Spain Champions"
+            width={880}
+            height={520}
+          />
+          <span>Personal Project</span>
+        </div>
+        <div class="project-body">
+          <p class="project-kicker">Python, scikit-learn, Gradio &middot; Built around the 2026 FIFA World Cup</p>
+          <h3>Scorecast: predicting international soccer outcomes</h3>
+          <p>
+            A machine learning web app that models expected goals using Poisson regression to predict win, draw, and loss probabilities for any international matchup since 1990.
+          </p>
+          <details class="project-detail">
+            <summary class="project-detail-summary">Read more &amp; watch demo</summary>
+            <div class="project-detail-body">
+              <p>Rather than predicting win, draw, or loss directly, Scorecast models the expected goals each team will score using two separate Poisson regression models &mdash; one for each side &mdash; then builds a score probability grid to derive win, draw, and loss probabilities from it. That's more expressive than a direct three-class classifier because it captures the full distribution of possible scorelines, not just the single most likely outcome.</p>
+              <p>Each prediction draws on Elo ratings that update after every match with a competition-weighted K-factor, recency-weighted form and goals over the last ten matches, and head-to-head history between the two teams.</p>
+            </div>
+          </details>
+          <div class="chip-row">
+            <span>Python</span>
+            <span>scikit-learn</span>
+            <span>Gradio</span>
+          </div>
+          <a href="https://github.com/pitzilscript/scorecast-app" class="text-link project-link" target="_blank" rel="noopener noreferrer">
+            View on GitHub
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /project-cards -->
+
+  </div><!-- /work-layout -->
+</div>

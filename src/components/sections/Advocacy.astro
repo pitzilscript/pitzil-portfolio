@@ -1,105 +1,93 @@
 ---
-import { Image } from "astro:assets";
-import advocacyBg from "../../assets/photos/place-capitol-exterior.jpg";
 ---
 
-<section class="relative overflow-hidden">
-  <Image
-    src={advocacyBg}
-    alt=""
-    widths={[800, 1600, 2400]}
-    sizes="100vw"
-    data-parallax
-    class="absolute inset-0 h-full w-full object-cover object-[50%_35%] grayscale blur-[1px]"
-  />
-  <div
-    class="absolute inset-0"
-    style="background-color: rgba(250, 247, 238, 0.8);"
-  ></div>
+<div class="tab-panel" id="main-content">
+  <div class="section-intro reveal">
+    <p class="eyebrow">Advocacy</p>
+    <h2>Where engineering<br/>meets justice.</h2>
+    <p>
+      From Sacramento testimony that became state law to bilingual community infrastructure, this is what it looks like to use technical skills in service of people.
+    </p>
+  </div>
 
-  <div class="relative mx-auto max-w-5xl px-6 py-20">
-    <h1 class="reveal font-display text-3xl font-normal text-navy-950">
-      Advocacy
-    </h1>
-
-    <div class="mt-8 grid gap-6 lg:grid-cols-3">
-      <article class="reveal card-lift rounded-xl border border-navy-950/15 bg-white p-6">
-        <h2 class="font-display text-2xl font-normal text-navy-950">
-          SB 897: testifying at the California State Capitol
-        </h2>
-        <p class="mt-1 text-sm text-sage-700">
-          California Senate and Assembly Education Committees · Sacramento, CA · 2024
+  <div class="story-grid reveal">
+    <!-- Feature story: SB 897 -->
+    <div class="feature-story">
+      <span class="story-number">01</span>
+      <div>
+        <p class="meta">2024 &middot; California State Capitol</p>
+        <h3>SB 897: Making District of Choice Permanent</h3>
+        <p>
+          In 2024, I testified before the California Senate and Assembly Education Committees on SB 897, the bill that made California's District of Choice program permanent, working alongside Senator Josh Newman and advocates from more than fifteen school districts statewide.
         </p>
-        <div class="mt-4 space-y-4 text-navy-800">
-          <p>
-            In 2024, I testified before the California Senate and Assembly
-            Education Committees on SB 897, the bill that made California's
-            District of Choice program permanent, working alongside Senator
-            Josh Newman and advocates from more than fifteen school districts
-            statewide.
-          </p>
-          <p>
-            District of Choice is the program that let me attend Walnut
-            Valley schools instead of the district I would have been
-            assigned to by default. I'd already lived what the bill was
-            arguing for, so testifying for other students to have the same
-            option felt like a tremendous honor and responsibility.
-          </p>
-          <p>
-            The full hearing is archived through CalMatters' Digital
-            Democracy project. My testimony starts around the 24:50 mark of
-            the <a
-              href="https://calmatters.digitaldemocracy.org/hearings/258116"
-              class="font-semibold text-sage-700 underline decoration-sage-500 underline-offset-2 hover:text-sage-500"
-              >official hearing record</a
-            >.
-          </p>
-        </div>
-      </article>
+        <p style="color: rgba(244,239,225,0.65); font-size: 12px; line-height: 1.7; margin-top: 10px;">
+          District of Choice is the program that let me attend Walnut Valley schools instead of the district I would have been assigned to by default. I'd already lived what the bill was arguing for, so testifying for other students to have the same option felt like a tremendous honor and responsibility.
+        </p>
+        <a href="https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB897" class="text-link" target="_blank" rel="noopener noreferrer" style="margin-top: 20px;">
+          Read SB 897 text
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
 
-      <article class="reveal reveal-d2 card-lift rounded-xl border border-navy-950/15 bg-white p-6">
-        <h2 class="font-display text-2xl font-normal text-navy-950">
-          Girl Scout Gold Award
-        </h2>
-        <div class="mt-4 space-y-4 text-navy-800">
-          <p>
-            For my Gold Award, I translated a court-mandated training manual
-            into Spanish for the Latinx families it was supposed to serve,
-            since the original English-only version was failing to fully
-            support the community it was meant to reach.
-          </p>
-          <p>
-            I also built mental health resource kits and educational
-            materials for youth in foster care, and gave trauma-informed
-            presentations to the school community.
-          </p>
-          <p>
-            Girl Scouts later recognized me as a Lifetime Member.
-          </p>
+    <div class="story-stack">
+      <!-- Gold Award -->
+      <div class="small-story reveal">
+        <div class="icon-tile large" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 2l2.35 5.26 5.65.82-4 3.9.94 5.5L10 14.77l-4.94 2.71.94-5.5-4-3.9 5.65-.82z" stroke="currentColor" stroke-width="1.3" fill="none"/>
+          </svg>
         </div>
-      </article>
+        <div>
+          <p class="meta">Girl Scouts &middot; Lifetime Member</p>
+          <h3>Gold Award</h3>
+          <p>
+            Translated a court-mandated training manual into Spanish for the Latinx families it was meant to serve, built mental health resource kits for youth in foster care, and gave trauma-informed presentations to the school community.
+          </p>
+          <a href="https://www.youtube.com/watch?v=5DXfsqlR-WM" class="text-link" target="_blank" rel="noopener noreferrer" style="margin-top: 14px;">
+            Watch project video
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
 
-      <article class="reveal reveal-d3 card-lift rounded-xl border border-navy-950/15 bg-white p-6">
-        <h2 class="font-display text-2xl font-normal text-navy-950">
-          Bithiah's Family Services
-        </h2>
-        <div class="mt-4 space-y-4 text-navy-800">
+      <!-- Bithiah's -->
+      <div class="small-story reveal reveal-d1">
+        <div class="icon-tile large" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 3C6.13 3 3 6.13 3 10s3.13 7 7 7 7-3.13 7-7-3.13-7-7-7z" stroke="currentColor" stroke-width="1.3" fill="none"/>
+            <path d="M10 7v3l2 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="meta">2014 &ndash; Present &middot; Bithiah's Family Services</p>
+          <h3>Coordinator of Volunteers</h3>
           <p>
-            My advocacy work started at Bithiah's Family Services when I was
-            seven, volunteering at fundraisers, galas, and resource
-            distribution events for foster and adoptive families. That's
-            grown into a thirteen-year relationship, and since 2020 I've
-            served as Coordinator of Volunteers, leading a bilingual
-            initiative that has translated more than 80 pages of materials
-            into Spanish and helped coordinate more than 50 supply
-            distribution events. More detail on that role is on the <a
-              href="/work"
-              class="font-semibold text-sage-700 underline decoration-sage-500 underline-offset-2 hover:text-sage-500"
-              >Experience page</a
-            >.
+            Volunteering since age 7; since 2020 leading a bilingual initiative that has translated 80+ pages of materials into Spanish and coordinated 50+ supply distribution events for foster and adoptive families.
           </p>
         </div>
-      </article>
+      </div>
+
+      <!-- IOY Ambassador -->
+      <div class="small-story reveal reveal-d2">
+        <div class="icon-tile large" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.3" fill="none"/>
+            <path d="M6.5 10h7M10 6.5v7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="meta">2026 &ndash; 2027 &middot; International Organization for Youth</p>
+          <h3>IOY Ambassador</h3>
+          <p>
+            Selected as an IOY Ambassador for the 2026&ndash;2027 cycle. <!-- Pitzil: add a sentence here about what this role means to you or what you'll be doing -->
+          </p>
+        </div>
+      </div>
     </div>
   </div>
-</section>
+</div>
