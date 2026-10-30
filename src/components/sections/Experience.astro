@@ -279,6 +279,9 @@ import scorecastPhoto from "../../assets/photos/scorecast-worldcup.jpg";
               <p>The entire application runs on a LattePanda Iota, a single-board edge computer small and power-efficient enough to operate in a low-resource environment. A GL.iNet Opal router turns that device into its own private network, broadcasting a WPA3-secured hotspot that students connect to directly.</p>
               <p>The stack is a Django REST API backed by PostgreSQL, served through Gunicorn, with a React frontend and an Nginx reverse proxy handling HTTPS and captive-portal routing. Every architectural decision traces back to the same constraint: this has to keep working through power outages, with no IT support on hand.</p>
               <p>The system is built and technically complete. Deployment is on hold until the team can travel to Uganda.</p>
+              <video class="project-video" controls preload="none" poster="">
+                <source src="/videos/cvbuilder-demo.mov" type="video/mp4" />
+              </video>
             </div>
           </details>
           <div class="chip-row">
@@ -313,6 +316,9 @@ import scorecastPhoto from "../../assets/photos/scorecast-worldcup.jpg";
             <div class="project-detail-body">
               <p>Rather than predicting win, draw, or loss directly, Scorecast models the expected goals each team will score using two separate Poisson regression models &mdash; one for each side &mdash; then builds a score probability grid to derive win, draw, and loss probabilities from it. That's more expressive than a direct three-class classifier because it captures the full distribution of possible scorelines, not just the single most likely outcome.</p>
               <p>Each prediction draws on Elo ratings that update after every match with a competition-weighted K-factor, recency-weighted form and goals over the last ten matches, and head-to-head history between the two teams.</p>
+              <video class="project-video" controls preload="none">
+                <source src="/videos/scorecast-demo.mov" type="video/mp4" />
+              </video>
             </div>
           </details>
           <div class="chip-row">

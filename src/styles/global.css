@@ -862,6 +862,13 @@ details[open] .project-detail-summary::after { content: ' ▴'; }
   opacity: 0.75;
 }
 
+.project-video {
+  border-radius: 6px;
+  margin-top: 16px;
+  max-width: 100%;
+  width: 100%;
+}
+
 .project-kicker {
   color: var(--sage-dark);
   font-size: 9px;
