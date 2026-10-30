@@ -57,14 +57,34 @@ import Layout from "../layouts/Layout.astro";
       <div class="stat-grid">
         <div class="stat-card"><div class="stat-label">Total Visitors</div><div class="stat-value" id="s-total">—</div></div>
         <div class="stat-card"><div class="stat-label">This Week</div><div class="stat-value" id="s-week">—</div></div>
-        <div class="stat-card"><div class="stat-label">Total Sessions</div><div class="stat-value" id="s-sessions">—</div></div>
+        <div class="stat-card"><div class="stat-label">Today</div><div class="stat-value" id="s-today">—</div></div>
         <div class="stat-card"><div class="stat-label">Total Page Views</div><div class="stat-value" id="s-views">—</div></div>
+        <div class="stat-card" style="border-left:3px solid #a9c2ac;">
+          <div class="stat-label">Apple Private Relay</div>
+          <div class="stat-value" id="s-relay" style="font-size:1.4rem">—</div>
+          <div style="font-size:0.65rem;color:#7c9885;margin-top:4px;font-family:system-ui,sans-serif;">iCloud users — location hidden</div>
+        </div>
       </div>
 
       <div class="section">
         <h2>Visitors — Last 30 Days</h2>
         <div class="chart-wrap">
           <div id="daily-chart"></div>
+        </div>
+      </div>
+
+      <div class="two-col section">
+        <div>
+          <h2>Hour of Day (Last 30 Days)</h2>
+          <div class="chart-wrap">
+            <div id="hour-chart"></div>
+          </div>
+        </div>
+        <div>
+          <h2>Day of Week (Last 30 Days)</h2>
+          <div class="chart-wrap">
+            <div id="dow-chart"></div>
+          </div>
         </div>
       </div>
 
@@ -160,10 +180,11 @@ import Layout from "../layouts/Layout.astro";
       }).join("");
     }
 
-    function buildChart(dailyData) {
-      const wrap = document.getElementById("daily-chart");
-      if (!dailyData?.rows?.length) { wrap.innerHTML = '<p style="font-size:0.8rem;color:#7c9885;padding:0.5rem">No data yet.</p>'; return; }
-      const vals = dailyData.rows.map(r => Number(r.metricValues[0].value));
+    function buildBarChart(containerId, rows, getLabel, getVal, color = "#7c9885") {
+      const wrap = document.getElementById(containerId);
+      if (!rows?.length) { wrap.innerHTML = '<p style="font-size:0.8rem;color:#7c9885;padding:0.5rem">No data yet.</p>'; return; }
+      const vals = rows.map(r => getVal(r));
+      const labels = rows.map(r => getLabel(r));
       const max = Math.max(...vals, 1);
       const n = vals.length;
       const W = 800, H = 80, labelH = 14;
@@ -173,12 +194,51 @@ import Layout from "../layouts/Layout.astro";
         const x = i * (barW + gap);
         const h = Math.max(2, (v / max) * H);
         const y = H - h;
-        const d = dailyData.rows[i].dimensionValues[0].value;
-        const label = `${d.slice(4,6)}/${d.slice(6,8)}`;
-        const showLabel = i === 0 || i === n - 1 || i % 7 === 0;
-        return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" fill="#7c9885" rx="1"><title>${label}: ${fmt(v)} visitors</title></rect>${showLabel ? `<text x="${(x + barW / 2).toFixed(1)}" y="${H + labelH - 2}" text-anchor="middle" font-size="9" fill="#7c9885" font-family="system-ui,sans-serif">${label}</text>` : ""}`;
+        return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" fill="${color}" rx="1"><title>${labels[i]}: ${fmt(v)} visitors</title></rect><text x="${(x + barW / 2).toFixed(1)}" y="${H + labelH - 2}" text-anchor="middle" font-size="9" fill="#7c9885" font-family="system-ui,sans-serif">${labels[i]}</text>`;
       }).join("");
       wrap.innerHTML = `<svg viewBox="0 0 ${W} ${H + labelH}" style="width:100%;height:auto;display:block;">${bars}</svg>`;
+    }
+
+    function buildChart(dailyData) {
+      if (!dailyData?.rows?.length) { document.getElementById("daily-chart").innerHTML = '<p style="font-size:0.8rem;color:#7c9885;padding:0.5rem">No data yet.</p>'; return; }
+      buildBarChart(
+        "daily-chart",
+        dailyData.rows,
+        r => { const d = r.dimensionValues[0].value; return `${d.slice(4,6)}/${d.slice(6,8)}`; },
+        r => Number(r.metricValues[0].value)
+      );
+    }
+
+    const DOW_LABELS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    function buildHourChart(hourData) {
+      if (!hourData?.rows?.length) return;
+      // Fill in missing hours with 0
+      const byHour = new Array(24).fill(0);
+      hourData.rows.forEach(r => { byHour[Number(r.dimensionValues[0].value)] = Number(r.metricValues[0].value); });
+      const rows = byHour.map((v, i) => ({
+        dimensionValues: [{ value: String(i) }],
+        metricValues: [{ value: String(v) }],
+      }));
+      buildBarChart("hour-chart", rows,
+        r => { const h = Number(r.dimensionValues[0].value); return h === 0 ? "12a" : h < 12 ? `${h}a` : h === 12 ? "12p" : `${h-12}p`; },
+        r => Number(r.metricValues[0].value),
+        "#506656"
+      );
+    }
+
+    function buildDowChart(dowData) {
+      if (!dowData?.rows?.length) return;
+      const byDay = new Array(7).fill(0);
+      dowData.rows.forEach(r => { byDay[Number(r.dimensionValues[0].value)] = Number(r.metricValues[0].value); });
+      const rows = byDay.map((v, i) => ({
+        dimensionValues: [{ value: String(i) }],
+        metricValues: [{ value: String(v) }],
+      }));
+      buildBarChart("dow-chart", rows,
+        r => DOW_LABELS[Number(r.dimensionValues[0].value)],
+        r => Number(r.metricValues[0].value),
+        "#506656"
+      );
     }
 
     async function loadWorldMap() {
@@ -261,11 +321,14 @@ import Layout from "../layouts/Layout.astro";
 
         document.getElementById("s-total").textContent = fmt(getVal(data.total, 0, 0));
         document.getElementById("s-week").textContent = fmt(getVal(data.week, 0, 0));
-        document.getElementById("s-sessions").textContent = fmt(getVal(data.total, 0, 1));
+        document.getElementById("s-today").textContent = fmt(getVal(data.today, 0, 0));
         document.getElementById("s-views").textContent = fmt(getVal(data.total, 0, 2));
+        document.getElementById("s-relay").textContent = fmt(data.privateRelay ?? 0);
         document.getElementById("updated-time").textContent = "Last updated: " + new Date().toLocaleString();
 
         buildChart(data.daily);
+        buildHourChart(data.hours);
+        buildDowChart(data.daysOfWeek);
         loadWorldMap();
         buildMap(data.countries?.rows);
         buildTable("pages-table", data.pages?.rows, r => r.dimensionValues[0].value, true);

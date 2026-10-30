@@ -108,14 +108,17 @@ export const handler = async (event) => {
   const orderByMetric = (name) => [{ metric: { metricName: name }, desc: true }];
 
   try {
-    const [totalReport, weekReport, dailyReport, pagesReport, countryReport, cityReport] =
+    const [totalReport, weekReport, todayReport, dailyReport, pagesReport, countryReport, cityReport, hourReport, dowReport] =
       await Promise.all([
         runReport(accessToken, propertyId, [], [{ name: "totalUsers" }, { name: "sessions" }, { name: "screenPageViews" }], [{ startDate: "2020-01-01", endDate: "today" }]),
         runReport(accessToken, propertyId, [], [{ name: "totalUsers" }, { name: "sessions" }], [{ startDate: "7daysAgo", endDate: "today" }]),
+        runReport(accessToken, propertyId, [], [{ name: "totalUsers" }], [{ startDate: "today", endDate: "today" }]),
         runReport(accessToken, propertyId, [{ name: "date" }], [{ name: "totalUsers" }], [{ startDate: "30daysAgo", endDate: "today" }], [{ dimension: { dimensionName: "date" }, desc: false }]),
         runReport(accessToken, propertyId, [{ name: "pagePath" }], [{ name: "screenPageViews" }], [{ startDate: "2020-01-01", endDate: "today" }], orderByMetric("screenPageViews"), 20),
         runReport(accessToken, propertyId, [{ name: "country" }], [{ name: "totalUsers" }], [{ startDate: "2020-01-01", endDate: "today" }], orderByMetric("totalUsers"), 20),
-        runReport(accessToken, propertyId, [{ name: "city" }], [{ name: "totalUsers" }], [{ startDate: "2020-01-01", endDate: "today" }], orderByMetric("totalUsers"), 20),
+        runReport(accessToken, propertyId, [{ name: "city" }], [{ name: "totalUsers" }], [{ startDate: "2020-01-01", endDate: "today" }], orderByMetric("totalUsers"), 30),
+        runReport(accessToken, propertyId, [{ name: "hour" }], [{ name: "totalUsers" }], [{ startDate: "30daysAgo", endDate: "today" }], [{ dimension: { dimensionName: "hour" }, desc: false }]),
+        runReport(accessToken, propertyId, [{ name: "dayOfWeek" }], [{ name: "totalUsers" }], [{ startDate: "30daysAgo", endDate: "today" }], [{ dimension: { dimensionName: "dayOfWeek" }, desc: false }]),
       ]);
 
     // Normalize page paths: strip trailing slashes (except "/") and merge duplicates
@@ -135,10 +138,37 @@ export const handler = async (event) => {
         }));
     }
 
+    // Separate Apple Private Relay traffic (exits through Council Bluffs, Iowa)
+    const PRIVATE_RELAY_CITIES = new Set(["Council Bluffs", "(not set)"]);
+    let privateRelayCount = 0;
+    if (cityReport.rows) {
+      const real = [];
+      for (const row of cityReport.rows) {
+        const city = row.dimensionValues[0].value;
+        if (PRIVATE_RELAY_CITIES.has(city)) {
+          privateRelayCount += Number(row.metricValues[0].value);
+        } else {
+          real.push(row);
+        }
+      }
+      cityReport.rows = real;
+    }
+
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ total: totalReport, week: weekReport, daily: dailyReport, pages: pagesReport, countries: countryReport, cities: cityReport }),
+      body: JSON.stringify({
+        total: totalReport,
+        week: weekReport,
+        today: todayReport,
+        daily: dailyReport,
+        pages: pagesReport,
+        countries: countryReport,
+        cities: cityReport,
+        privateRelay: privateRelayCount,
+        hours: hourReport,
+        daysOfWeek: dowReport,
+      }),
     };
   } catch (e) {
     return { statusCode: 500, body: JSON.stringify({ error: e.message }) };
