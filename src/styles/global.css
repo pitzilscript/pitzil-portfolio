@@ -376,7 +376,7 @@
 }
 
 .photo-frame::after {
-  background: linear-gradient(to top, rgba(20, 28, 36, 0.22), transparent 45%);
+  background: linear-gradient(to top, rgba(250, 247, 238, 0.92) 0%, transparent 55%);
   content: '';
   inset: 0;
   position: absolute;
