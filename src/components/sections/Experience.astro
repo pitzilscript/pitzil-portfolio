@@ -103,7 +103,7 @@ import scorecastPhoto from "../../assets/photos/scorecast-worldcup.jpg";
                 Engineered an offline-first edge server on a LattePanda Iota with GL.iNet Opal networking, broadcasting a private WPA3 hotspot that serves a Django application with zero internet dependency, built to withstand power outages in a Ugandan community school.
               </p>
               <p>
-                The production stack includes a Django REST API, a PostgreSQL data layer, a React frontend, Gunicorn WSGI, and an Nginx reverse proxy with HTTPS, all running on the edge device itself. The system is built and technically complete. Deployment is planned for spring 2027.
+                The production stack includes a Django REST API, a PostgreSQL data layer, a React frontend, Gunicorn WSGI, and an Nginx reverse proxy with HTTPS, all running on the edge device itself. The system is built and technically complete. Deployment is planned for summer 2027, pending safe travel conditions due to the ongoing Ebola crisis in Uganda.
               </p>
             </div>
           </div>
@@ -267,7 +267,7 @@ import scorecastPhoto from "../../assets/photos/scorecast-worldcup.jpg";
           <span>Featured Project</span>
         </div>
         <div class="project-body">
-          <p class="project-kicker">Watoto, Intl. &middot; Kampala, Uganda &middot; Feb &ndash; Jun 2026</p>
+          <p class="project-kicker">Watoto, Intl. &middot; Kampala, Uganda &middot; Feb 2026 &ndash; Present</p>
           <h3>CVBuilder: offline infrastructure for a Ugandan community school</h3>
           <p>
             A resume-building app that runs entirely on a single-board computer broadcasting its own Wi-Fi hotspot &mdash; no power grid or internet required.
@@ -278,7 +278,7 @@ import scorecastPhoto from "../../assets/photos/scorecast-worldcup.jpg";
               <p>The community school this was built for doesn't have reliable power, and it doesn't have stable internet. Most software assumes both. CVBuilder is designed around the opposite assumption: that connectivity might never come, and the system still has to work.</p>
               <p>The entire application runs on a LattePanda Iota, a single-board edge computer small and power-efficient enough to operate in a low-resource environment. A GL.iNet Opal router turns that device into its own private network, broadcasting a WPA3-secured hotspot that students connect to directly.</p>
               <p>The stack is a Django REST API backed by PostgreSQL, served through Gunicorn, with a React frontend and an Nginx reverse proxy handling HTTPS and captive-portal routing. Every architectural decision traces back to the same constraint: this has to keep working through power outages, with no IT support on hand.</p>
-              <p>The system is built and technically complete. Deployment is on hold until the team can travel to Uganda.</p>
+              <p>The system is built and technically complete. Deployment is planned for summer 2027 -- the team is waiting for safe travel conditions due to the ongoing Ebola crisis in Uganda.</p>
               <video class="project-video" controls preload="none" poster="">
                 <source src="/videos/cvbuilder-demo.mov" type="video/mp4" />
               </video>
